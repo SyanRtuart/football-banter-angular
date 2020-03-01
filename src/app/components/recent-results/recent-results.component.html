@@ -1,0 +1,15 @@
+<div class="vertical-center">
+    <div class="justify-content-center">
+        <mat-expansion-panel *ngFor="let result of results">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ result.homeTeam }} {{ result.homeScore }}
+                </mat-panel-title>
+                <mat-panel-title>
+                    {{result.awayTeam }} {{ result.awayScore }}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button (click)="this.getBanter()">Generate Banter</button>
+        </mat-expansion-panel>
+    </div>
+</div>

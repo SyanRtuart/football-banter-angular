@@ -1,0 +1,16 @@
+<div class="vertical-center">
+    <div class="justify-content-center">
+        <mat-tab-group>
+            <mat-tab label="For">
+                <div *ngFor="let banter of banterFor">
+                  {{banter.banter}}
+                </div>
+            </mat-tab>
+            <mat-tab label="Against">
+              <div *ngFor="let banter of banterAgainst">
+                {{banter.banter}}
+              </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

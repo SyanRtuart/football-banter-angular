@@ -1,0 +1,15 @@
+<div class="vertical-center">
+  <div class="justify-content-center">
+    <mat-form-field>
+      <mat-label>Select Team</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let team of teams" 
+        (onSelectionChange)="this.selectTeam(team)"
+        [value]="team.name">
+          {{team.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
