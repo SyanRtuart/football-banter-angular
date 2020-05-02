@@ -20,9 +20,8 @@ export class GenerateBanterComponent implements OnInit {
 
   loadBanter() {
     this.banterService.getBanter().subscribe(response => {
-        this.banterFor = response.filter(x => x.type === 'For');
-        this.banterAgainst = response.filter(x => x.type === 'Against');
-
-      });
+      this.banterFor = response.filter(x => x.type === 'For');
+      this.banterAgainst = response.filter(x => x.type === 'Against');
+    });
   }
 }
