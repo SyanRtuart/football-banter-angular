@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenerateBanterComponent } from './generate-banter.component';
+import { MatchBanterComponent } from './match-banter.component';
 
-describe('GenerateBanterComponent', () => {
-  let component: GenerateBanterComponent;
-  let fixture: ComponentFixture<GenerateBanterComponent>;
+describe('MatchBanterComponent', () => {
+  let component: MatchBanterComponent;
+  let fixture: ComponentFixture<MatchBanterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GenerateBanterComponent ]
+      declarations: [ MatchBanterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GenerateBanterComponent);
+    fixture = TestBed.createComponent(MatchBanterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

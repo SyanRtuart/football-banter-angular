@@ -3,13 +3,13 @@
         <mat-expansion-panel *ngFor="let result of results">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    {{ result.homeTeam }} {{ result.homeScore }}
+                    {{ result.homeTeam }} {{ result.scoreHomeTeam }}
                 </mat-panel-title>
                 <mat-panel-title>
-                    {{result.awayTeam }} {{ result.awayScore }}
+                    {{result.awayTeam }} {{ result.scoreAwayTeam }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <button (click)="this.getBanter()">Generate Banter</button>
+            <button (click)="this.getBanter(result)">Get Banter</button>
         </mat-expansion-panel>
     </div>
 </div>

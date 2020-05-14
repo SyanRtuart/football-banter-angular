@@ -1,27 +1,49 @@
+import { retry, catchError } from 'rxjs/operators';
+import { Phrase } from './../models/phrase';
+import { Observable, throwError } from 'rxjs';
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { Banter } from '../models/banter';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BanterService {
 
-  banter: Banter[] = [
-    {type: 'For', banter: 'Your team played good last night'},
-    {type: 'For', banter: 'So and so was good wasnt he'},
-    {type: 'For', banter: 'So and so strikes again'},
-    {type: 'For', banter: 'Took your eyes off him for 5 minutes'},
-    {type: 'Against', banter: 'What happened last night?'},
-    {type: 'Against', banter: 'So and so never even turned up last night'},
-    {type: 'Against', banter: 'Your teams crap'},
-    {type: 'Against', banter: 'Bla bla bla'},
-  ];
+  private apiUrl = environment.apiUrl;
 
-  constructor() { }
+  private apiRoutes = {
+    getPhrasesByMatcHId: 'phrase/getPhrases?matchId='
+  }
 
- getBanter(): Observable<Banter[]> {
-   return of(this.banter);
- }
+  constructor(private http: HttpClient) { }
+
+  getPhrasesByMatchId(matchId: number): Observable<Phrase[]> {
+    return this.http.get<Phrase[]>(this.apiUrl + this.apiRoutes.getPhrasesByMatcHId + matchId)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+    // TODO: Find a better place for this, it's in multiple classes
+    private handleError(err: HttpErrorResponse) {
+      const errorMessages = [];
+
+      if (err.error instanceof Error) {
+        errorMessages[0] = `An error occurred: ${err.error.message}`;
+      } else {
+        errorMessages[0] = `Server returned code: ${err.status}, error message is: ${err.message}`;
+        if (err.error.errors) {
+          let i = 1;
+          err.error.errors.forEach((e: any) => {
+            errorMessages[i] = e;
+            i = i + 1;
+          });
+        }
+      }
+
+      return throwError(errorMessages);
+    }
 
 }

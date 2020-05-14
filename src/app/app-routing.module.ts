@@ -1,14 +1,14 @@
 import { TeamSelectComponent } from './components/team-select/team-select.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecentResultsComponent } from './components/recent-results/recent-results.component';
-import { GenerateBanterComponent } from './components/generate-banter/generate-banter.component';
+import { RecentMatchesComponent } from './components/recent-matches/recent-matches.component';
+import { MatchBanterComponent } from './components/match-banter/match-banter.component';
 
 
 const routes: Routes = [
   { path: '', component: TeamSelectComponent},
-  { path: 'recent-results', component: RecentResultsComponent},
-  { path: 'generate-banter', component: GenerateBanterComponent}
+  { path: 'recent-results/:id', component: RecentMatchesComponent},
+  { path: 'match-banter/:id', component: MatchBanterComponent}
 ];
 
 @NgModule({

@@ -4,17 +4,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Team } from '../models/team';
+import { Match } from '../models/match';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TeamService {
+export class MatchService {
 
   private apiUrl = environment.apiUrl;
 
   private apiRoutes = {
-    getTeams: 'match/getTeams'
-  }
+    getTeams: 'match/getTeams',
+    getRecentMatchesByTeamId: 'match/getRecentMatches?teamId='
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +28,15 @@ export class TeamService {
     );
   }
 
+  getRecentMatchesByTeamId(teamId: number): Observable<Match[]> {
+    return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getRecentMatchesByTeamId + teamId)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  // TODO: Find a better place for this, it's in multiple classes
   private handleError(err: HttpErrorResponse) {
     const errorMessages = [];
 
