@@ -16,6 +16,8 @@ import {MatListModule} from '@angular/material/list';
 import { CreateBanterComponent } from './components/create-banter/create-banter.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FormsModule } from '@angular/forms';
     TeamSelectComponent,
     RecentMatchesComponent,
     MatchBanterComponent,
-    CreateBanterComponent
+    CreateBanterComponent,
+    UpvoteButtonComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     MatDialogModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
 
 
   ],

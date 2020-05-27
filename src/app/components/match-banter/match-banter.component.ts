@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./match-banter.component.css']
 })
 export class MatchBanterComponent implements OnInit {
-
   banterList: Phrase[] = [];
   matchId: number;
 
