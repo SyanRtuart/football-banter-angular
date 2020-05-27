@@ -15,6 +15,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import { CreateBanterComponent } from './components/create-banter/create-banter.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule,
     MatListModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
 
 
   ],

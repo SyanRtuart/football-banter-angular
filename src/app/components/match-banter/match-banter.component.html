@@ -1,12 +1,10 @@
 <div class="vertical-center">
   <div class="justify-content-center">
     <P>List of banter for this match</P>
-    <mat-list>
-      <mat-list-item> Pepper  </mat-list-item>
-      <mat-list-item> Salt </mat-list-item>
-      <mat-list-item> Paprika </mat-list-item>
+    <mat-list *ngFor="let banter of banterList">
+      <mat-list-item> {{ banter.description }}  </mat-list-item>
      </mat-list>
-    <button mat-raised-button (click)="openDialog()">Add New</button>
+    <button mat-raised-button (click)="addNew()">Add New</button>
   </div>
 </div>
 

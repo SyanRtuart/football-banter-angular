@@ -1,11 +1,20 @@
 <p> Add your new piece of banter here chaps </p>
-<form class="example-form">
+<form class="example-form" #createBanterForm="ngForm">
   <mat-form-field class="example-full-width">
     <mat-label>Add banter</mat-label>
-    <input matInput placeholder="Type your banter here...">
+    <mat-label></mat-label>
+
+    <input  for="description" [(ngModel)]="model.description" name="description" #name="ngModel"
+      id="description" matInput placeholder="Type your banter here..." required minlength="1">
   </mat-form-field>
+  <div *ngIf="name.invalid && (name.dirty || name.touched)" >
 
+    <div *ngIf="name.errors.required" class="alert alert-danger">
+      Description is required.
+    </div>
 
-  <button (click)="submit()" mat-raised-button matDialogClose >Submit</button>
+  </div>
+
+  <button (click)="submit()" mat-raised-button matDialogClose [disabled]="createBanterForm.form.invalid" >Submit</button>
   <button mat-raised-button matDialogClose>Cancel</button>
 </form>

@@ -15,12 +15,14 @@ export class MatchService {
 
   private apiRoutes = {
     getTeams: 'match/getTeams',
-    getRecentMatchesByTeamId: 'match/getRecentMatches?teamId='
+    getRecentMatchesByTeamId: 'match/getRecentMatches?teamId=',
+    getMatch: 'match/getMatch?matchId='
   };
 
   constructor(private http: HttpClient) { }
 
   getTeams(): Observable<Team[]> {
+    console.log('Getting teams from URL: ' + this.apiUrl + this.apiRoutes.getTeams);
     return this.http.get<Team[]>(this.apiUrl + this.apiRoutes.getTeams)
     .pipe(
       retry(2),
@@ -30,6 +32,14 @@ export class MatchService {
 
   getRecentMatchesByTeamId(teamId: number): Observable<Match[]> {
     return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getRecentMatchesByTeamId + teamId)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  getMatch(matchId: number): Observable<Match> {
+    return this.http.get<Match>(this.apiUrl + this.apiRoutes + matchId)
       .pipe(
         retry(2),
         catchError(this.handleError)
