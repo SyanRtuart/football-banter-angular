@@ -9,6 +9,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./upvote-button.component.css']
 })
 export class UpvoteButtonComponent implements OnInit {
+
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
 
@@ -27,12 +28,16 @@ export class UpvoteButtonComponent implements OnInit {
     const vote = this.userVote === 1 ? 0 : 1;
     this.score += vote;
     this.userVote = vote;
+
+    this.banterService.upvote(this.phraseId).subscribe();
   }
 
   downvote() {
     const vote = this.userVote === -1 ? 0 : -1;
     this.score += vote;
     this.userVote = vote;
+
+    this.banterService.downvote(this.phraseId).subscribe();
   }
 
 }

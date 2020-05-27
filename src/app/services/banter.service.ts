@@ -1,3 +1,4 @@
+import { VoteRequest } from './../models/vote-request';
 import { CreatePhraseRequest } from './../models/create-phrase-request';
 import { retry, catchError } from 'rxjs/operators';
 import { Phrase } from './../models/phrase';
@@ -5,8 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UpvotePhraseRequest } from '../models/upvote-phrase-request';
-import { DownvotePhraseRequest } from '../models/downvote-phrase-request';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class BanterService {
   private apiRoutes = {
     getPhrasesByMatchId: 'phrase/getPhrases?matchId=',
     addPhrase: 'phrase/createPhrase',
-    upvotePhrase: 'phrase/upvotePhrase',
-    downvotePhrase: 'phrase/downvotePhrase',
+    upvotePhrase: 'phrase/upvotePhrase?phraseId=',
+    downvotePhrase: 'phrase/downvotePhrase?phraseId=',
 
   };
 
@@ -42,18 +42,21 @@ export class BanterService {
     );
   }
 
-  upvote(request: UpvotePhraseRequest): Observable<UpvotePhraseRequest> {
-    console.log('Upvoting phrase at :' + this.apiUrl + this.apiRoutes.upvotePhrase);
-    return this.http.post<UpvotePhraseRequest>(this.apiUrl + this.apiRoutes.upvotePhrase, request)
+  upvote(phraseId: number) {
+    const request: VoteRequest = new VoteRequest();
+    request.phraseId = phraseId;
+    return this.http.put(this.apiUrl + this.apiRoutes.upvotePhrase + phraseId, phraseId)
     .pipe(
       retry(2),
       catchError(this.handleError)
     );
   }
 
-  downvote(request: DownvotePhraseRequest): Observable<DownvotePhraseRequest> {
-    console.log('Upvoting phrase at :' + this.apiUrl + this.apiRoutes.downvotePhrase);
-    return this.http.post<DownvotePhraseRequest>(this.apiUrl + this.apiRoutes.downvotePhrase, request)
+  downvote(phraseId: number) {
+    const request: VoteRequest = new VoteRequest();
+    request.phraseId = phraseId;
+    console.log('downvoting phrase at :' + this.apiUrl + this.apiRoutes.downvotePhrase);
+    return this.http.put(this.apiUrl + this.apiRoutes.downvotePhrase + phraseId, phraseId)
     .pipe(
       retry(2),
       catchError(this.handleError)

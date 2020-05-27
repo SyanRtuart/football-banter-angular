@@ -3,7 +3,7 @@
     <P>List of banter for this match</P>
     <mat-list *ngFor="let banter of banterList">
       <mat-list-item> {{ banter.description }}  </mat-list-item>
-      <app-upvote-button [score]="31" [phraseId]="1" > </app-upvote-button>
+      <app-upvote-button [score]="banter.score" [phraseId]="banter.id" > </app-upvote-button>
      </mat-list>
     <button mat-raised-button (click)="addNew()">Add New</button>
   </div>
