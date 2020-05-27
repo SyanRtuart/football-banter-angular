@@ -2,19 +2,17 @@
 <form class="example-form" #createBanterForm="ngForm">
   <mat-form-field class="example-full-width">
     <mat-label>Add banter</mat-label>
-    <mat-label></mat-label>
 
-    <input  for="description" [(ngModel)]="model.description" name="description" #name="ngModel"
-      id="description" matInput placeholder="Type your banter here..." required minlength="1">
+    <input  matInput [(ngModel)]="model.description" name="description" #name="ngModel"
+      id="description"  placeholder="Type your banter here..." required minlength="1">
   </mat-form-field>
   <div *ngIf="name.invalid && (name.dirty || name.touched)" >
 
     <div *ngIf="name.errors.required" class="alert alert-danger">
       Description is required.
     </div>
-
   </div>
 
-  <button (click)="submit()" mat-raised-button matDialogClose [disabled]="createBanterForm.form.invalid" >Submit</button>
+  <button (click)="submit()" [mat-dialog-close]="this.phrase" mat-raised-button [disabled]="createBanterForm.form.invalid"  >Submit</button>
   <button mat-raised-button matDialogClose>Cancel</button>
 </form>

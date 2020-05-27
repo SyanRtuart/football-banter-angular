@@ -1,6 +1,6 @@
+import { Phrase } from './../../models/phrase';
 import { CreatePhraseRequest } from './../../models/create-phrase-request';
 import { DialogData } from './../../models/dialog-data';
-import { Phrase } from './../../models/phrase';
 import { BanterService } from 'src/app/services/banter.service';
 import { Component, Input, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,22 +16,25 @@ export class CreateBanterComponent {
               private banterService: BanterService) { }
 
   model = new CreatePhraseRequest();
+  phrase = new Phrase();
 
   submit(): void {
-    console.log('match id = ' + this.data.matchId + 'team id = ' + this.data.teamId);
     this.setValues();
-    this.banterService.add(this.model).subscribe(response =>
-      console.log(response));
+    this.banterService.add(this.model).subscribe();
   }
 
   // TODO: Fix this, not correct pattern
   setValues() {
     // TODO: Always True - Need to add a check box on the form?
     this.model.positive = true;
-    this.model.matchId = 1;
-    this.model.teamId =1;
 
-    // this.model.matchId = this.data.matchId;
-    // this.model.teamId = this.data.teamId;
+    this.model.matchId = this.data.matchId;
+    this.model.teamId = this.data.teamId;
+
+    // TODO: When the API returns the created object then we can change this
+    this.phrase.description = this.model.description;
+    this.phrase.positive = this.model.positive;
+    this.phrase.score = 0;
+    //this.phrase.id = 0;
   }
 }
