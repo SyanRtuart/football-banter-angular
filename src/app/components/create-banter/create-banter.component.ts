@@ -20,7 +20,10 @@ export class CreateBanterComponent {
 
   submit(): void {
     this.setValues();
-    this.banterService.add(this.model).subscribe();
+    this.banterService.add(this.model).subscribe(response => {
+      this.phrase.id = response;
+      console.log("CreateBanterComponent -> submit -> response", response)
+    });
   }
 
   // TODO: Fix this, not correct pattern
@@ -34,7 +37,7 @@ export class CreateBanterComponent {
     // TODO: When the API returns the created object then we can change this
     this.phrase.description = this.model.description;
     this.phrase.positive = this.model.positive;
-    this.phrase.score = 0;
+    this.phrase.score = 1;
     //this.phrase.id = 0;
   }
 }

@@ -1,5 +1,5 @@
 export class Phrase {
-  id: number;
+  id: string;
   description: string;
   positive: boolean;
   score: number;

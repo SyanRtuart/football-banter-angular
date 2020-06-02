@@ -1,5 +1,5 @@
 export class Match {
-    id: number;
+    id: string;
     homeTeamId: number;
     awayTeamId: number;
     homeTeam: string;

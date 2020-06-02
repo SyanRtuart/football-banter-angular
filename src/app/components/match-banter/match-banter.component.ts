@@ -14,7 +14,7 @@ import { MatchService } from 'src/app/services/match.service';
 })
 export class MatchBanterComponent implements OnInit {
   banterList: Phrase[] = [];
-  matchId: number;
+  matchId: string;
   match: Match;
   newPhrase: Phrase;
 
@@ -23,7 +23,7 @@ export class MatchBanterComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.matchId = parseInt(params.id);
+      this.matchId = params.id;
 
       this.matchService.getMatch(this.matchId).subscribe(response => this.match = response);
     });

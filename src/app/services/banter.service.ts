@@ -25,7 +25,7 @@ export class BanterService {
 
   constructor(private http: HttpClient) { }
 
-  getPhrasesByMatchId(matchId: number): Observable<Phrase[]> {
+  getPhrasesByMatchId(matchId: string): Observable<Phrase[]> {
     return this.http.get<Phrase[]>(this.apiUrl + this.apiRoutes.getPhrasesByMatchId + matchId)
       .pipe(
         retry(2),
@@ -33,9 +33,9 @@ export class BanterService {
       );
   }
 
-  add(request: CreatePhraseRequest): Observable<CreatePhraseRequest> {
+  add(request: CreatePhraseRequest) {
     console.log('Creating phrase at: ' + this.apiUrl + this.apiRoutes.addPhrase);
-    return this.http.post<CreatePhraseRequest>(this.apiUrl + this.apiRoutes.addPhrase, request)
+    return this.http.post<string>(this.apiUrl + this.apiRoutes.addPhrase, request)
     .pipe(
       retry(2),
       catchError(this.handleError)

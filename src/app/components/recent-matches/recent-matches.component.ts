@@ -11,9 +11,9 @@ import { Match } from 'src/app/models/match';
 export class RecentMatchesComponent implements OnInit {
 
   results: Match[] = [];
-  selectedTeamId: number;
+  selectedTeamId: string;
 
-  constructor(private matchService: MatchService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private matchService: MatchService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

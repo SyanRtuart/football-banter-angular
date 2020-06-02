@@ -29,7 +29,7 @@ export class MatchService {
     );
   }
 
-  getRecentMatchesByTeamId(teamId: number): Observable<Match[]> {
+  getRecentMatchesByTeamId(teamId: string): Observable<Match[]> {
     return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getRecentMatchesByTeamId + teamId)
       .pipe(
         retry(2),
@@ -37,7 +37,7 @@ export class MatchService {
       );
   }
 
-  getMatch(matchId: number): Observable<Match> {
+  getMatch(matchId: string): Observable<Match> {
     return this.http.get<Match>(this.apiUrl + this.apiRoutes.getMatch + matchId)
       .pipe(
         retry(2),
