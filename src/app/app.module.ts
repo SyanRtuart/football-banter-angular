@@ -1,3 +1,4 @@
+import { DefaultModule } from './layouts/default/default.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,13 +12,14 @@ import { RecentMatchesComponent } from './components/recent-matches/recent-match
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatchBanterComponent } from './components/match-banter/match-banter.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { CreateBanterComponent } from './components/create-banter/create-banter.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,6 @@ import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.
     MatchBanterComponent,
     CreateBanterComponent,
     UpvoteButtonComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -42,9 +43,8 @@ import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    FontAwesomeModule
-
-
+    FontAwesomeModule,
+    DefaultModule
   ],
   providers: [],
   bootstrap: [AppComponent]
