@@ -1,0 +1,25 @@
+<div class="vertical-center">
+    <form (ngSubmit)="this.login()" [formGroup]="loginForm" class="login-form" >
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Ex. bill@example.com">
+        <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address -->
+        <!-- </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" autocomplete="off">
+        <!-- <mat-error *ngIf="passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error> -->
+      </mat-form-field>
+
+
+      <button (click)="this.login()" mat-raised-button color="primary" class="float-right">Login</button>
+      <button type="button" (click)="this.register()" mat-raised-button color="primary" class="float-left">Register</button>
+
+    </form>
+
+</div>
+

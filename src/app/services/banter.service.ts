@@ -1,7 +1,7 @@
-import { VoteRequest } from './../models/vote-request';
-import { CreatePhraseRequest } from './../models/create-phrase-request';
+import { VoteRequest } from '../models/services/banter/vote-request';
+import { CreatePhraseRequest } from '../models/services/banter/create-phrase-request';
 import { retry, catchError } from 'rxjs/operators';
-import { Phrase } from './../models/phrase';
+import { Phrase } from '../models/services/banter/phrase';
 import { Observable, throwError } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';

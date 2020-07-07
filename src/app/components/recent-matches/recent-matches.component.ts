@@ -1,7 +1,7 @@
 import { MatchService } from './../../services/match.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Match } from 'src/app/models/match';
+import { Match } from 'src/app/models/services/match/match';
 
 @Component({
   selector: 'app-recent-matches',
@@ -17,7 +17,7 @@ export class RecentMatchesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.selectedTeamId = params.id
+      this.selectedTeamId = params.id;
     });
 
     this.getRecentMatches();

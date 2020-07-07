@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Team } from '../models/team';
-import { Match } from '../models/match';
+import { Team } from '../models/services/match/team';
+import { Match } from '../models/services/match/match';
 
 @Injectable({
   providedIn: 'root'

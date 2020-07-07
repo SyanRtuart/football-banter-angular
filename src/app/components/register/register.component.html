@@ -1,0 +1,44 @@
+<div class="vertical-center">
+  <form (ngSubmit)="this.register()" [formGroup]="registerForm" class="login-form" >
+
+
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+
+
+
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" autocomplete="off">
+    </mat-form-field>
+
+
+
+    <mat-form-field >
+      <mat-label>Confirm Password</mat-label>
+      <input matInput formControlName="confirmPassword" autocomplete="off" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="registerForm.hasError('notSame')">
+        Passwords do not match
+    </mat-error>
+    </mat-form-field>
+
+
+    <button  mat-raised-button color="primary" class="float-right">Register</button>
+
+  </form>
+
+</div>

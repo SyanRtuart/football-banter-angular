@@ -1,6 +1,6 @@
 import { MatchService } from './../../services/match.service';
 import { Component, OnInit } from '@angular/core';
-import { Team } from 'src/app/models/team';
+import { Team } from 'src/app/models/services/match/team';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,7 +1,8 @@
+import { HttpInterceptorService } from './services/http-interceptor.service';
 import { DefaultModule } from './layouts/default/default.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,10 +17,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { CreateBanterComponent } from './components/create-banter/create-banter.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { MatButtonModule } from '@angular/material/button';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.
     MatchBanterComponent,
     CreateBanterComponent,
     UpvoteButtonComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +49,17 @@ import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.
     MatInputModule,
     FormsModule,
     FontAwesomeModule,
-    DefaultModule
+    DefaultModule,
+    ReactiveFormsModule,
+    MatButtonModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

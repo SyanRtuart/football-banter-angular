@@ -1,3 +1,6 @@
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './services/auth-guard.service';
 import { TeamSelectComponent } from './components/team-select/team-select.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { DefaultComponent } from './layouts/default/default.component';
@@ -8,13 +11,15 @@ import { MatchBanterComponent } from './components/match-banter/match-banter.com
 
 
 const routes: Routes = [
-  { path: '', component: DefaultComponent,
+  { path: '', component: DefaultComponent, canActivate: [AuthGuardService],
     children: [
-      {path: '', component: DashboardComponent},
-      { path: 'team-select', component: TeamSelectComponent },
+      { path: 'dashboard', component: DashboardComponent,  },
+      { path: 'team-select', component: TeamSelectComponent,  },
       { path: 'recent-results/:id', component: RecentMatchesComponent },
-      { path: 'match-banter/:id', component: MatchBanterComponent }
+      { path: 'match-banter/:id', component: MatchBanterComponent },
     ]},
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({

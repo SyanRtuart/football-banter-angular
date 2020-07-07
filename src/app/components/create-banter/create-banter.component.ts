@@ -1,5 +1,5 @@
-import { Phrase } from './../../models/phrase';
-import { CreatePhraseRequest } from './../../models/create-phrase-request';
+import { Phrase } from '../../models/services/banter/phrase';
+import { CreatePhraseRequest } from '../../models/services/banter/create-phrase-request';
 import { DialogData } from './../../models/dialog-data';
 import { BanterService } from 'src/app/services/banter.service';
 import { Component, Input, Inject } from '@angular/core';

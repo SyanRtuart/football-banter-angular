@@ -1,4 +1,8 @@
+import { CookieService } from './../../../services/cookie.service';
+import { Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Route } from '@angular/compiler/src/core';
+import { JwtTokenService } from 'src/app/services/jwt-token.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private router: Router, private jwtService: JwtTokenService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
   }
@@ -18,4 +22,10 @@ export class HeaderComponent implements OnInit {
   toggleSidebar() {
     this.toggleSideBarForMe.emit();
   }
+
+  signout() {
+    this.cookieService.remove(this.cookieService.keyStore.footballBanterAccessToken);
+    this.router.navigate(['/login']);
+  }
+
 }

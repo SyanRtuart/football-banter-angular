@@ -1,5 +1,5 @@
-import { Match } from './../../models/match';
-import { Phrase } from './../../models/phrase';
+import { Match } from '../../models/services/match/match';
+import { Phrase } from '../../models/services/banter/phrase';
 import { CreateBanterComponent } from './../create-banter/create-banter.component';
 import { Component, OnInit } from '@angular/core';
 import { BanterService } from 'src/app/services/banter.service';
