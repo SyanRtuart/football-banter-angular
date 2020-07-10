@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: lightgray; }
 
 
 .jumbotron.vertical-center {
@@ -29,5 +29,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
+  }
+
+  .float-right {
+    float: right
+  }
+
+  .float-left {
+    float: left
   }
 

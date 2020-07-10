@@ -1,44 +1,75 @@
-<div class="vertical-center">
-  <form (ngSubmit)="this.register()" [formGroup]="registerForm" class="login-form" >
+<div class="card m-3">
+  <h5 class="card-header">Register</h5>
+  <div class="card-body">
+    <div class="vertical-center">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <div class="form-row">
+
+          <mat-form-field class="form-group col-6 no-padding">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" formControlName="firstName"
+              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+          </mat-form-field>
 
 
-
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>First Name</mat-label>
-      <input matInput formControlName="firstName">
-    </mat-form-field>
-
+          <mat-form-field class="form-group col-6 right-padding">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" formControlName="lastName"
+              [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            </div>
+          </mat-form-field>
 
 
+          <mat-form-field class="right-padding">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+          </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Last Name</mat-label>
-      <input matInput formControlName="lastName">
-    </mat-form-field>
+          <mat-form-field class="right-padding">
+            <mat-label>Confirm Email</mat-label>
+            <input matInput type="text" formControlName="confirmEmail"
+              [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }" />
+            <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmEmail.errors.mustMatch">Emails must match</div>
+            </div>
+          </mat-form-field>
 
+          <mat-form-field class="form-group col-6 no-padding ">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+            </div>
+          </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input matInput formControlName="password" autocomplete="off">
-    </mat-form-field>
+          <mat-form-field class="form-group col-6 right-padding">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword"
+              [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+              <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="text-center">
+          <button type="submit" mat-raised-button color="primary">Register</button>
 
-
-
-    <mat-form-field >
-      <mat-label>Confirm Password</mat-label>
-      <input matInput formControlName="confirmPassword" autocomplete="off" [errorStateMatcher]="matcher">
-      <mat-error *ngIf="registerForm.hasError('notSame')">
-        Passwords do not match
-    </mat-error>
-    </mat-form-field>
-
-
-    <button  mat-raised-button color="primary" class="float-right">Register</button>
-
-  </form>
-
+          <button color="secondary" mat-raised-button type="reset" (click)="onReset()" >Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

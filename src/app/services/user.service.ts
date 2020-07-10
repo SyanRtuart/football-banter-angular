@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
+import { RegisterRequest } from '../models/services/user/register-request';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,15 @@ export class UserService {
 
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.apiUrl + this.apiRoutes.login, request)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  register(request: RegisterRequest) {
+    request.login = request.email;
+    return this.http.post(this.apiUrl + this.apiRoutes.register, request)
       .pipe(
         retry(2),
         catchError(this.handleError)

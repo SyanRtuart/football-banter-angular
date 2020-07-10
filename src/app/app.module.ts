@@ -1,3 +1,4 @@
+import { MustMatchDirective } from './validators/must-match-directive';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { DefaultModule } from './layouts/default/default.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,6 +24,7 @@ import { UpvoteButtonComponent } from './components/upvote-button/upvote-button.
 import { LoginComponent } from './components/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RegisterComponent } from './components/register/register.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { RegisterComponent } from './components/register/register.component';
     UpvoteButtonComponent,
     LoginComponent,
     RegisterComponent,
+    MustMatchDirective
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { RegisterComponent } from './components/register/register.component';
     DefaultModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatIconModule,
   ],
   providers: [
     {

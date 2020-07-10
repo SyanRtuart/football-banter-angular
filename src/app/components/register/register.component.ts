@@ -1,7 +1,8 @@
+import { UserService } from './../../services/user.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective, FormControl, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { MustMatch } from 'src/app/validators/must-match-validator';
 
 @Component({
   selector: 'app-register',
@@ -9,45 +10,60 @@ import { ErrorStateMatcher } from '@angular/material/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  model: any = {};
   registerForm: FormGroup;
-  matcher  = new MyErrorStateMatcher();
+  hidePassword = true;
+  hideConfirmPassword = true;
+  submitted = false;
 
-
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
     this.createForm();
   }
 
   ngOnInit(): void {
   }
 
-  private createForm() {
-    this.registerForm = this.formBuilder.group({
-      email:  ['', Validators.email],
-      firstName:  ['', Validators.required],
-      lastName:  ['', Validators.required],
-      password:  ['', Validators.required],
-      confirmPassword: ['']
-    }, {validator: this.checkPasswords});
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    console.log('registering');
+    this.register();
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.registerForm.reset();
   }
 
   register() {
-    console.log('registering');
+    this.userService.register(this.registerForm.value).subscribe(response => {
+      console.log('registered successfully');
+      this.router.navigate(['/login']);
+    });
   }
 
+  get f() { return this.registerForm.controls; }
 
-  checkPasswords(group: FormGroup) {
-    const pass = group.controls.password.value;
-    const confirmPass = group.controls.confirmPassword.value;
-
-    return pass === confirmPass ? null : { notSame: true };
+  private createForm() {
+    this.registerForm = this.formBuilder.group({
+      login: [''],
+      email: ['', Validators.compose(
+        [Validators.email, Validators.required]
+      )],
+      confirmEmail: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      password: ['', Validators.compose(
+        [ Validators.required, Validators.minLength(8)]
+      )],
+      confirmPassword: ['', ]
+    }, {
+      validator: [MustMatch('password', 'confirmPassword'), MustMatch('email', 'confirmEmail')]
+    });
   }
 }
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
-    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
-    return (invalidCtrl || invalidParent);
-  }
-}

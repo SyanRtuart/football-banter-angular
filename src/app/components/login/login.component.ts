@@ -12,6 +12,8 @@ import { JwtTokenService } from 'src/app/services/jwt-token.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  model: any = {};
+  submitted = false;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder,
               private tokenService: JwtTokenService, private cookieService: CookieService,
@@ -21,6 +23,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  get f() { return this.loginForm.controls; }
+
 
   login() {
     this.userService.login(this.loginForm.value).subscribe(response => {

@@ -1,25 +1,28 @@
-<div class="vertical-center">
-    <form (ngSubmit)="this.login()" [formGroup]="loginForm" class="login-form" >
-      <mat-form-field class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" placeholder="Ex. bill@example.com">
-        <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-          Please enter a valid email address -->
-        <!-- </mat-error> -->
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" autocomplete="off">
-        <!-- <mat-error *ngIf="passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')">
-          Please enter a valid email address
-        </mat-error> -->
-      </mat-form-field>
+<div class="card m-3">
+  <h5 class="card-header">Login</h5>
+  <div class="card-body">
+    <div class="vertical-center">
+      <form (ngSubmit)="this.login()" [formGroup]="loginForm" class="login-form">
 
+        <mat-form-field class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" formControlName="email" placeholder="Ex. bill@example.com"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        </mat-form-field>
 
-      <button (click)="this.login()" mat-raised-button color="primary" class="float-right">Login</button>
-      <button type="button" (click)="this.register()" mat-raised-button color="primary" class="float-left">Register</button>
+        <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="text" formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="off" />
+        </mat-form-field>
+        <div class="text-center">
 
-    </form>
+          <button (click)="this.login()" mat-raised-button color="primary">Login</button>
+          <button type="button" (click)="this.register()" mat-raised-button color="secondary">Register</button>
+        </div>
 
+      </form>
+
+    </div>
+  </div>
 </div>
-
