@@ -11,15 +11,17 @@ import { MatchBanterComponent } from './components/match-banter/match-banter.com
 
 
 const routes: Routes = [
-  { path: '', component: DefaultComponent, canActivate: [AuthGuardService],
+  { path: '', component: DefaultComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent,  },
-      { path: 'team-select', component: TeamSelectComponent,  },
-      { path: 'recent-results/:id', component: RecentMatchesComponent },
-      { path: 'match-banter/:id', component: MatchBanterComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+      { path: 'team-select', component: TeamSelectComponent,  canActivate: [AuthGuardService]},
+      { path: 'recent-results/:id', component: RecentMatchesComponent, canActivate: [AuthGuardService] },
+      { path: 'match-banter/:id', component: MatchBanterComponent , canActivate: [AuthGuardService]},
+
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ]},
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+
 ];
 
 @NgModule({

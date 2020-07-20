@@ -1,3 +1,4 @@
+import { State } from './../../models/state';
 import { Router } from '@angular/router';
 import { CookieService } from './../../services/cookie.service';
 import { UserService } from './../../services/user.service';
@@ -16,14 +17,18 @@ export class LoginComponent implements OnInit {
   submitted = false;
   isLoading = false;
   hasError = false;
+  state: State;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder,
               private tokenService: JwtTokenService, private cookieService: CookieService,
               private router: Router) {
+
+    this.state = this.router.getCurrentNavigation().extras.state;
     this.createForm();
   }
 
   ngOnInit(): void {
+
   }
 
   onSubmit() {

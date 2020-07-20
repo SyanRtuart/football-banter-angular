@@ -1,9 +1,9 @@
+import { BusinessRuleException } from './../../models/business-rule-exception';
 import { UserService } from './../../services/user.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective, FormControl, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MustMatch } from 'src/app/validators/must-match-validator';
-import { BusinessRuleException } from 'src/app/models/business-rule-exception';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if (this.registerForm.invalid) {
       return;
     }
@@ -37,6 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onReset() {
+    this.error = null;
     this.submitted = false;
     this.registerForm.reset();
   }
@@ -44,8 +44,9 @@ export class RegisterComponent implements OnInit {
   register() {
     this.isLoading = true;
     this.userService.register(this.registerForm.value).subscribe(response => {
-
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], {
+         state: { details: `A confirmation email has been sent to ${this.registerForm.controls['email'].value}.`}
+        });
     }, error => {
       this.isLoading = false;
       this.error = error;
