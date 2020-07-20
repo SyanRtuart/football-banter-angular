@@ -1,6 +1,9 @@
+import { retry, catchError } from 'rxjs/operators';
 import { Injectable, Inject, Optional } from '@angular/core';
 import { JwtTokenService } from './jwt-token.service';
-import { HttpRequest, HttpHandler } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
+import { BusinessRuleException } from '../models/business-rule-exception';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,16 @@ export class HttpInterceptorService {
         Authorization: `Bearer ${token}`
       }
     });
-    return next.handle(req);
+    return next.handle(req)
+      .pipe(retry(1),
+      catchError(this.handleError));
+  }
+
+  private handleError(err: HttpErrorResponse) {
+    const jsonError: any = JSON.parse(err.error.detail);
+
+    const exception: BusinessRuleException = jsonError as BusinessRuleException;
+
+    return throwError(exception);
   }
 }

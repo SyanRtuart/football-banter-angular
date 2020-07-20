@@ -1,28 +1,38 @@
-<div class="card m-3">
-  <h5 class="card-header">Login</h5>
-  <div class="card-body">
-    <div class="vertical-center">
-      <form (ngSubmit)="this.login()" [formGroup]="loginForm" class="login-form">
+<div class="d-flex align-items-center min-vh-100">
+  <div class="container">
+    <div class="card m-3">
+      <h5 class="card-header">Login</h5>
+      <div class="card-body">
+        <div class="vertical-center">
+          <form (ngSubmit)="this.onSubmit()" [formGroup]="loginForm" class="login-form">
 
-        <mat-form-field class="full-width">
-          <mat-label>Email</mat-label>
-          <input matInput type="text" formControlName="email" placeholder="Ex. bill@example.com"
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-        </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" formControlName="email" placeholder="Ex. bill@example.com"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>Password</mat-label>
-          <input matInput type="text" formControlName="password"
-            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="off" />
-        </mat-form-field>
-        <div class="text-center">
+            <mat-form-field class="full-width">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password"
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" autocomplete="off" />
+            </mat-form-field>
 
-          <button (click)="this.login()" mat-raised-button color="primary">Login</button>
-          <button type="button" (click)="this.register()" mat-raised-button color="secondary">Register</button>
+            <div class="text-center">
+              <button type="submit" mat-raised-button color="primary" [class.spinner]="isLoading"
+                [disabled]="isLoading">Login</button>
+
+              <button type="button" (click)="this.register()" mat-raised-button color="secondary"
+                [disabled]="this.isLoading">Register</button>
+            </div>
+
+            <div *ngIf="this.hasError" class="alert alert-danger m-2" role="alert">
+              An error has occurred, please try again later.
+            </div>
+          </form>
+
         </div>
-
-      </form>
-
+      </div>
     </div>
   </div>
 </div>

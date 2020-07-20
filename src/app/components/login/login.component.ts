@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   model: any = {};
   submitted = false;
+  isLoading = false;
+  hasError = false;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder,
               private tokenService: JwtTokenService, private cookieService: CookieService,
@@ -24,14 +26,27 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get f() { return this.loginForm.controls; }
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.login();
+  }
 
 
   login() {
+    this.isLoading = true;
     this.userService.login(this.loginForm.value).subscribe(response => {
       this.tokenService.setToken(response.accessToken);
       this.cookieService.set('footballBanterAccessToken', response.accessToken);
       this.router.navigate(['/dashboard']);
+    }, error => {
+      this.hasError = true;
+      this.isLoading = false;
+
     });
   }
 
@@ -39,9 +54,14 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  get f() { return this.loginForm.controls; }
+
+
   private createForm() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', Validators.compose([
+        Validators.email, Validators.required
+      ])],
       password: ['', Validators.required],
     });
   }

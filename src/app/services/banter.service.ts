@@ -26,61 +26,25 @@ export class BanterService {
   constructor(private http: HttpClient) { }
 
   getPhrasesByMatchId(matchId: string): Observable<Phrase[]> {
-    return this.http.get<Phrase[]>(this.apiUrl + this.apiRoutes.getPhrasesByMatchId + matchId)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
+    return this.http.get<Phrase[]>(this.apiUrl + this.apiRoutes.getPhrasesByMatchId + matchId);
   }
 
   add(request: CreatePhraseRequest) {
     console.log('Creating phrase at: ' + this.apiUrl + this.apiRoutes.addPhrase);
-    return this.http.post<string>(this.apiUrl + this.apiRoutes.addPhrase, request)
-    .pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+    return this.http.post<string>(this.apiUrl + this.apiRoutes.addPhrase, request);
   }
 
   upvote(phraseId: number) {
     const request: VoteRequest = new VoteRequest();
     request.phraseId = phraseId;
-    return this.http.put(this.apiUrl + this.apiRoutes.upvotePhrase + phraseId, phraseId)
-    .pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+    return this.http.put(this.apiUrl + this.apiRoutes.upvotePhrase + phraseId, phraseId);
   }
 
   downvote(phraseId: number) {
     const request: VoteRequest = new VoteRequest();
     request.phraseId = phraseId;
     console.log('downvoting phrase at :' + this.apiUrl + this.apiRoutes.downvotePhrase);
-    return this.http.put(this.apiUrl + this.apiRoutes.downvotePhrase + phraseId, phraseId)
-    .pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+    return this.http.put(this.apiUrl + this.apiRoutes.downvotePhrase + phraseId, phraseId);
   }
-
-    // TODO: Find a better place for this, it's in multiple classes
-    private handleError(err: HttpErrorResponse) {
-      const errorMessages = [];
-
-      if (err.error instanceof Error) {
-        errorMessages[0] = `An error occurred: ${err.error.message}`;
-      } else {
-        errorMessages[0] = `Server returned code: ${err.status}, error message is: ${err.message}`;
-        if (err.error.errors) {
-          let i = 1;
-          err.error.errors.forEach((e: any) => {
-            errorMessages[i] = e;
-            i = i + 1;
-          });
-        }
-      }
-
-      return throwError(errorMessages);
-    }
 
 }

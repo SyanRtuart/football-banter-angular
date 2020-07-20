@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective, FormControl, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MustMatch } from 'src/app/validators/must-match-validator';
+import { BusinessRuleException } from 'src/app/models/business-rule-exception';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,8 @@ export class RegisterComponent implements OnInit {
   hidePassword = true;
   hideConfirmPassword = true;
   submitted = false;
+  isLoading = false;
+  error: BusinessRuleException;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
     this.createForm();
@@ -30,7 +33,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    console.log('registering');
     this.register();
   }
 
@@ -40,9 +42,13 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.isLoading = true;
     this.userService.register(this.registerForm.value).subscribe(response => {
-      console.log('registered successfully');
+
       this.router.navigate(['/login']);
+    }, error => {
+      this.isLoading = false;
+      this.error = error;
     });
   }
 
@@ -54,13 +60,13 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.compose(
         [Validators.email, Validators.required]
       )],
-      confirmEmail: [''],
+      confirmEmail: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       password: ['', Validators.compose(
-        [ Validators.required, Validators.minLength(8)]
+        [Validators.required, Validators.minLength(8)]
       )],
-      confirmPassword: ['', ]
+      confirmPassword: ['', Validators.required]
     }, {
       validator: [MustMatch('password', 'confirmPassword'), MustMatch('email', 'confirmEmail')]
     });

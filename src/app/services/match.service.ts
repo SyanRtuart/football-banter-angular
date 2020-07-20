@@ -22,47 +22,16 @@ export class MatchService {
   constructor(private http: HttpClient) { }
 
   getTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.apiUrl + this.apiRoutes.getTeams)
-    .pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
+    return this.http.get<Team[]>(this.apiUrl + this.apiRoutes.getTeams);
   }
 
   getRecentMatchesByTeamId(teamId: string): Observable<Match[]> {
-    return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getRecentMatchesByTeamId + teamId)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
+    return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getRecentMatchesByTeamId + teamId);
   }
 
   getMatch(matchId: string): Observable<Match> {
-    return this.http.get<Match>(this.apiUrl + this.apiRoutes.getMatch + matchId)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
+    return this.http.get<Match>(this.apiUrl + this.apiRoutes.getMatch + matchId);
   }
 
-  // TODO: Find a better place for this, it's in multiple classes
-  private handleError(err: HttpErrorResponse) {
-    const errorMessages = [];
-
-    if (err.error instanceof Error) {
-      errorMessages[0] = `An error occurred: ${err.error.message}`;
-    } else {
-      errorMessages[0] = `Server returned code: ${err.status}, error message is: ${err.message}`;
-      if (err.error.errors) {
-        let i = 1;
-        err.error.errors.forEach((e: any) => {
-          errorMessages[i] = e;
-          i = i + 1;
-        });
-      }
-    }
-
-    return throwError(errorMessages);
-  }
 
 }
