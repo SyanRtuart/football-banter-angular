@@ -2,6 +2,7 @@ import { MatchService } from './../../services/match.service';
 import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/services/match/team';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-team-select',
@@ -9,18 +10,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./team-select.component.css']
 })
 export class TeamSelectComponent implements OnInit {
-
-  teams: Team[] = [];
-
+  displayedColumns: string[] = ['logo', 'name', 'league', 'country'];
+  dataSource: MatTableDataSource<Team>;
+  isLoading: boolean;
   constructor(private matchService: MatchService, private router: Router) { }
 
   ngOnInit() {
     this.populateTeams();
   }
 
+  applyFilter(event: Event) {
+    console.log('running filter' + (event.target as HTMLInputElement).value);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   populateTeams() {
-    this.matchService.getTeams().subscribe(response =>
-      this.teams = response);
+  this.isLoading = true;
+  this.matchService.getTeams().subscribe(response => {
+        this.dataSource = new MatTableDataSource(response);
+        this.isLoading = false;
+      });
   }
 
   selectTeam(team: Team) {
