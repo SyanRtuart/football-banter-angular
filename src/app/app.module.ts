@@ -28,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MatCardModule } from '@angular/material/card';
     UpvoteButtonComponent,
     LoginComponent,
     RegisterComponent,
-    MustMatchDirective
+    MustMatchDirective,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,

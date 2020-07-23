@@ -32,7 +32,7 @@ import { MatListModule } from '@angular/material/list';
   exports: [
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class SharedModule { }

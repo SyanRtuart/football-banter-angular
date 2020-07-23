@@ -15,7 +15,7 @@ export class MatchService {
 
   private apiRoutes = {
     getTeams: 'match/getTeams',
-    getRecentMatchesByTeamId: 'match/getRecentMatches?teamId=',
+    getMatchesByTeamId: 'match/getRecentMatches?teamId=',
     getMatch: 'match/getMatch?id='
   };
 
@@ -25,8 +25,8 @@ export class MatchService {
     return this.http.get<Team[]>(this.apiUrl + this.apiRoutes.getTeams);
   }
 
-  getRecentMatchesByTeamId(teamId: string): Observable<Match[]> {
-    return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getRecentMatchesByTeamId + teamId);
+  getMatchesByTeamId(teamId: string): Observable<Match[]> {
+    return this.http.get<Match[]>(this.apiUrl + this.apiRoutes.getMatchesByTeamId + teamId);
   }
 
   getMatch(matchId: string): Observable<Match> {

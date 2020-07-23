@@ -1,15 +1,3 @@
-<div class="vertical-center">
-    <div class="justify-content-center">
-        <mat-expansion-panel *ngFor="let result of results">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{ result.homeTeam }} {{ result.scoreHomeTeam }}
-                </mat-panel-title>
-                <mat-panel-title>
-                    {{result.awayTeam }} {{ result.scoreAwayTeam }}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <button (click)="this.getBanter(result)">Get Banter</button>
-        </mat-expansion-panel>
-    </div>
+<div *ngIf="!this.isLoading">
+  <app-data-table [tableData]="dataSource" [columnHeaders]="displayedColumns" > </app-data-table>
 </div>

@@ -1,7 +1,7 @@
 export class Team {
     id: number;
     name: string;
-    logo: Blob;
+    logoBlob: Blob;
     league: string;
     country: string;
 }

@@ -2,6 +2,7 @@ import { MatchService } from './../../services/match.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Match } from 'src/app/models/services/match/match';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-recent-matches',
@@ -9,8 +10,10 @@ import { Match } from 'src/app/models/services/match/match';
   styleUrls: ['./recent-matches.component.css']
 })
 export class RecentMatchesComponent implements OnInit {
-
-  results: Match[] = [];
+  displayedColumns = {homeTeamLogo: 'Logo',  homeTeam: 'Home Team', scoreHomeTeam: 'Score', awayTeamLogo: 'Logo', awayTeam: 'Away Team',
+  scoreAwayTeam: 'Score', utcDate: 'Date', status: 'Status', season: 'Season' };
+  dataSource: MatTableDataSource<Match>;
+  isLoading: boolean;
   selectedTeamId: string;
 
   constructor(private matchService: MatchService, private router: Router, private route: ActivatedRoute) { }
@@ -19,14 +22,21 @@ export class RecentMatchesComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.selectedTeamId = params.id;
     });
-
+    this.isLoading = true;
     this.getRecentMatches();
   }
 
-  getRecentMatches() {
-    this.matchService.getRecentMatchesByTeamId(this.selectedTeamId).subscribe(response =>
-      this.results = response);
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
+  getRecentMatches() {
+    this.isLoading = true;
+    this.matchService.getMatchesByTeamId(this.selectedTeamId).subscribe(response => {
+      this.dataSource = new MatTableDataSource(response);
+      this.isLoading = false;
+    });
   }
 
   getBanter(match: Match) {

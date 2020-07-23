@@ -1,0 +1,20 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<table mat-table [dataSource]="tableData" matSort class="mat-elevation-z8">
+
+  <ng-container [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(columnHeaders)">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columnHeaders[tableData]}}    </th>
+    <td mat-cell *matCellDef="let element">
+    <div *ngIf='isBlob(tableData); else elseBlock'>
+      <img [src]="'data:image/JPEG;base64,' + element[tableData]" class="thumbnail" />
+    </div>
+    <ng-template #elseBlock>
+      {{element[tableData] }}
+    </ng-template>
+
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="objectKeys(columnHeaders)"></tr>
+  <tr (click)="this.click(row)" mat-row *matRowDef="let row; columns: objectKeys(columnHeaders);"></tr>
+</table>

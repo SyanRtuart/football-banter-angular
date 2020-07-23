@@ -22,7 +22,7 @@ export class CreateBanterComponent {
     this.setValues();
     this.banterService.add(this.model).subscribe(response => {
       this.phrase.id = response;
-      console.log("CreateBanterComponent -> submit -> response", response)
+      console.log("CreateBanterComponent -> submit -> response", response);
     });
   }
 
