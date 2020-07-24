@@ -10,10 +10,21 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./recent-matches.component.css']
 })
 export class RecentMatchesComponent implements OnInit {
-  displayedColumns = {homeTeamLogo: 'Logo',  homeTeam: 'Home Team', scoreHomeTeam: 'Score', awayTeamLogo: 'Logo', awayTeam: 'Away Team',
-  scoreAwayTeam: 'Score', utcDate: 'Date', status: 'Status', season: 'Season' };
+  displayedColumns: string[] = [
+    'homeTeamLogo',
+    'homeTeam',
+    'scoreHomeTeam',
+    'awayTeamLogo',
+    'awayTeam',
+    'scoreAwayTeam',
+    'utcDate',
+    'kickOff',
+    'status',
+    'season',
+  ];
   dataSource: MatTableDataSource<Match>;
   isLoading: boolean;
+
   selectedTeamId: string;
 
   constructor(private matchService: MatchService, private router: Router, private route: ActivatedRoute) { }
