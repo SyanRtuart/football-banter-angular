@@ -53,4 +53,8 @@ export class RecentMatchesComponent implements OnInit {
   getBanter(match: Match) {
     this.router.navigate(['/match-banter', match.id]);
   }
+
+  selectMatch(match: Match) {
+    this.router.navigate(['/match-banter', match.id]);
+  }
 }

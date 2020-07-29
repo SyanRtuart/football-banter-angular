@@ -1,0 +1,42 @@
+<mat-grid-list cols="3" rowHeight="100px">
+  <mat-grid-tile [colspan]="3" [rowspan]="1">
+<div class="text-left">
+  {{match.season}}, {{match.utcDate | date:'dd/MM/yy'  }} , {{match.utcDate | date:'shortTime'  }}
+</div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+    <div class="container">
+      <div class="child text-center">
+        <img src="data:image/png;base64,{{this.match.homeTeamLogo}}" class="medium"/>
+      </div>
+      <div class="child text-center">
+        {{match.homeTeam}}
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+      <div class="container" style="margin-bottom: 32px;" >
+        <div class="left h1">
+          {{match.scoreHomeTeam}}
+        </div>
+        <div class="text-center center h2">
+          -
+        </div>
+        <div class="text-right right h1">
+          {{match.scoreAwayTeam}}
+        </div>
+      </div>
+
+
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+    <div class="container">
+      <div class="child text-center">
+        <img src="data:image/png;base64,{{this.match.awayTeamLogo}}" class="medium"/>
+      </div>
+      <div class="child text-center">
+        {{match.awayTeam}}
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

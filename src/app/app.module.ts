@@ -29,6 +29,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { MatchCardComponent } from './components/match-card/match-card.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { DataTableComponent } from './components/data-table/data-table.component
     LoginComponent,
     RegisterComponent,
     MustMatchDirective,
-    DataTableComponent
+    DataTableComponent,
+    MatchCardComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { DataTableComponent } from './components/data-table/data-table.component
     MatIconModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     {

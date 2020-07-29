@@ -1,8 +1,16 @@
+<app-match-card [match]="this.match"></app-match-card>
+<mat-list *ngFor="let banter of banterList">
+  <app-upvote-button [score]="banter.score" [phraseId]="banter.id" >
+  </app-upvote-button>
+  <mat-list-item> {{ banter.description }}
+
+  </mat-list-item>
+  <br>
+ </mat-list>
+<button mat-raised-button (click)="addNew()">Add New</button>
+<!--
 <div class="vertical-center" *ngIf="this.match">
   <div class="justify-content-center">
-    <P> Fixure: {{ match.homeTeam }}(id = {{match.homeTeamId}}) vs {{ match.awayTeam }}(id = {{match.awayTeamId}})   </P>
-    <P> Score: {{ match.scoreHomeTeam}}  -  {{match.scoreAwayTeam}} </P>
-    <P> Winner: {{ match.scoreWinner }}</P>
     <mat-list *ngFor="let banter of banterList">
       <mat-list-item> {{ banter.description }}
         <app-upvote-button [score]="banter.score" [phraseId]="banter.id" >
@@ -13,4 +21,4 @@
     <button mat-raised-button (click)="addNew()">Add New</button>
   </div>
 </div>
-
+ -->

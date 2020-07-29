@@ -1,0 +1,25 @@
+.medium {
+  max-width: 100px;
+  max-height: 100px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.container{
+  display:table;
+ }
+
+.left{
+  display:table-cell;
+  width:33.33vw;
+}
+
+.center{
+  display:table-cell;
+  width:33.33vw;
+}
+
+.right{
+  display:table-cell;
+  width:33.33vw;
+}

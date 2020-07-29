@@ -18,27 +18,31 @@ export class MatchBanterComponent implements OnInit {
   match: Match;
   newPhrase: Phrase;
 
-  constructor(private banterService: BanterService, private matchService: MatchService, private route: ActivatedRoute,
+  constructor(private banterService: BanterService,
+              private matchService: MatchService,
+              private route: ActivatedRoute,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.matchId = params.id;
 
-      this.matchService.getMatch(this.matchId).subscribe(response => this.match = response);
+      this.matchService.getMatch(this.matchId)
+        .subscribe(response => this.match = response);
     });
     this.loadBanter();
   }
 
   loadBanter() {
-    this.banterService.getPhrasesByMatchId(this.matchId).subscribe(response => this.banterList = response);
+    this.banterService.getPhrasesByMatchId(this.matchId)
+      .subscribe(response => this.banterList = response);
   }
 
   addNew(): void {
     const dialogRef = this.dialog.open(CreateBanterComponent, {
       width: '250px',
       disableClose: true,
-      data: {matchId: this.matchId, teamId: this.match.homeTeamId, phrase: this.newPhrase}
+      data: { matchId: this.matchId, teamId: this.match.homeTeamId, phrase: this.newPhrase }
     });
 
     dialogRef.afterClosed().subscribe(result => {
