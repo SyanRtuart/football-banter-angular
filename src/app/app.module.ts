@@ -31,6 +31,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { MatchCardComponent } from './components/match-card/match-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatProgressSpinnerModule,
     MatTableModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSortModule
   ],
   providers: [
     {

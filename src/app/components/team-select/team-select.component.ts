@@ -18,7 +18,7 @@ export class TeamSelectComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.populateTeams();
+    this.loadTeams();
   }
 
   applyFilter(event: Event) {
@@ -26,7 +26,7 @@ export class TeamSelectComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  populateTeams() {
+  loadTeams() {
     this.isLoading = true;
     this.matchService.getTeams().subscribe(response => {
       this.dataSource = new MatTableDataSource(response);

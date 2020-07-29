@@ -9,7 +9,6 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./upvote-button.component.css']
 })
 export class UpvoteButtonComponent implements OnInit {
-
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
 

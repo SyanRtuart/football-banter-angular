@@ -1,11 +1,13 @@
 import { Match } from '../../models/services/match/match';
 import { Phrase } from '../../models/services/banter/phrase';
 import { CreateBanterComponent } from './../create-banter/create-banter.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BanterService } from 'src/app/services/banter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatchService } from 'src/app/services/match.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-match-banter',
@@ -13,10 +15,13 @@ import { MatchService } from 'src/app/services/match.service';
   styleUrls: ['./match-banter.component.css']
 })
 export class MatchBanterComponent implements OnInit {
-  banterList: Phrase[] = [];
+  displayedColumns: string[] = ['score', 'createdBy', 'description'];
+  dataSource: MatTableDataSource<Phrase>;
+  isLoading: boolean;
   matchId: string;
   match: Match;
   newPhrase: Phrase;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private banterService: BanterService,
               private matchService: MatchService,
@@ -24,6 +29,7 @@ export class MatchBanterComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.route.params.subscribe(params => {
       this.matchId = params.id;
 
@@ -34,8 +40,13 @@ export class MatchBanterComponent implements OnInit {
   }
 
   loadBanter() {
+    this.isLoading = true;
     this.banterService.getPhrasesByMatchId(this.matchId)
-      .subscribe(response => this.banterList = response);
+      .subscribe(response => {
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.sort = this.sort;
+      });
+    this.isLoading = false;
   }
 
   addNew(): void {
@@ -47,9 +58,8 @@ export class MatchBanterComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.newPhrase = result;
-      this.banterList.push(this.newPhrase);
-      console.log('The dialog was closed');
-
+      this.dataSource.data.push(this.newPhrase);
+      this.dataSource.data = this.dataSource.data;
     });
   }
 
