@@ -9,20 +9,14 @@
       <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
           <ul fxLayout="row" fxLayoutGap="20px">
               <li>
-                  <button mat-icon-button>
-                      <mat-icon>settings</mat-icon>
-                  </button>
-              </li>
-              <li>
-                  <button mat-icon-button>
-                      <mat-icon>help_outline</mat-icon>
-                  </button>
-              </li>
-              <li>
                   <button mat-button [matMenuTriggerFor]="menu">
                       <mat-icon>person_outline</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu" >
+                    <button mat-menu-item class="no-boarder" (click)="this.navigateToAccount()">
+                      <mat-icon>person_outline</mat-icon>
+                        Account
+                  </button>
                       <button mat-menu-item class="no-boarder" (click)="this.signout()">
                           <mat-icon>exit_to_app</mat-icon>
                             Signout

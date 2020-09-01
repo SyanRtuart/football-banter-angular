@@ -1,3 +1,4 @@
+import { CookieService } from './cookie.service';
 import { Injectable } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
 
@@ -5,50 +6,54 @@ import * as jwt_decode from 'jwt-decode';
   providedIn: 'root'
 })
 export class JwtTokenService {
+  jwtToken: string;
+  decodedToken: any;
 
- jwtToken: string;
- decodedToken: { [key: string]: string };
+  constructor(private cookieService: CookieService) {
+  }
 
- constructor() {
- }
+  setToken(token: string) {
+    if (token) {
+      this.jwtToken = token;
+    }
+  }
 
- setToken(token: string) {
-   if (token) {
-     this.jwtToken = token;
-   }
- }
+  decodeToken() {
+    if (!this.jwtToken) {
+      const cookie = this.cookieService.get(this.cookieService.keyStore.footballBanterAccessToken);
+      if (cookie) { this.jwtToken = cookie; }
+    }
 
- decodeToken() {
-   if (this.jwtToken) {
-   this.decodedToken = jwt_decode(this.jwtToken);
-   }
- }
+    if (this.jwtToken) {
+      this.decodedToken = jwt_decode(this.jwtToken);
+    }
+  }
 
- getDecodeToken() {
-   return jwt_decode(this.jwtToken);
- }
+  getDecodeToken() {
+    return jwt_decode(this.jwtToken);
+  }
 
- getUser() {
-   this.decodeToken();
-   return this.decodedToken;
- }
+  getUser() {
+    this.decodeToken();
+    return this.decodedToken;
+  }
 
- getEmailId() {
-   this.decodeToken();
-   return this.decodedToken ? this.decodedToken.email : null;
- }
+  getEmail() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken.email : null;
+  }
 
- getExpiryTime() {
-   this.decodeToken();
-   return this.decodedToken ? this.decodedToken.exp : null;
- }
+  getExpiryTime() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken.exp : null;
+  }
 
- isTokenExpired(): boolean {
-   const expiryTime: number =  parseInt(this.getExpiryTime(), 10);
-   if (expiryTime) {
-     return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
-   } else {
-     return false;
-   }
- }
+  isTokenExpired(): boolean {
+    const expiryTime: number = parseInt(this.getExpiryTime(), 10);
+    if (expiryTime) {
+      return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
+    } else {
+      return false;
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { User } from './../models/services/user/user';
 import { BusinessRuleException } from './../models/business-rule-exception';
 import { LoginResponse } from './../models/services/user/login-response';
 import { retry, catchError } from 'rxjs/operators';
@@ -18,7 +19,8 @@ export class UserService {
 
   private apiRoutes = {
     login: 'userAccess/login',
-    register: 'userAccess/register'
+    register: 'userAccess/register',
+    getUser: 'userAccess/user?email='
   };
 
   constructor(private http: HttpClient) { }
@@ -30,5 +32,9 @@ export class UserService {
   register(request: RegisterRequest) {
     request.login = request.email;
     return this.http.post(this.apiUrl + this.apiRoutes.register, request);
+  }
+
+  getUser(email: string) {
+    return this.http.get<User>(this.apiUrl + this.apiRoutes.getUser + email);
   }
 }

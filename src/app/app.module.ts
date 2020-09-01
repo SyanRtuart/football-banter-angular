@@ -32,6 +32,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { MatchCardComponent } from './components/match-card/match-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSortModule } from '@angular/material/sort';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { MatSortModule } from '@angular/material/sort';
     RegisterComponent,
     MustMatchDirective,
     DataTableComponent,
-    MatchCardComponent
+    MatchCardComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

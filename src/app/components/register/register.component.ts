@@ -19,7 +19,9 @@ export class RegisterComponent implements OnInit {
   isLoading = false;
   error: BusinessRuleException;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private userService: UserService) {
     this.createForm();
   }
 
@@ -45,8 +47,8 @@ export class RegisterComponent implements OnInit {
     this.isLoading = true;
     this.userService.register(this.registerForm.value).subscribe(response => {
       this.router.navigate(['/login'], {
-         state: { details: `A confirmation email has been sent to ${this.registerForm.controls['email'].value}.`}
-        });
+        state: { details: `A confirmation email has been sent to ${this.registerForm.controls.email.value}.` }
+      });
     }, error => {
       this.isLoading = false;
       this.error = error;

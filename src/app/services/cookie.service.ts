@@ -9,7 +9,7 @@ export class CookieService {
 
   public keyStore = {
     footballBanterAccessToken: 'footballBanterAccessToken'
-  }
+  };
 
   constructor() {
       this.parseCookies(document.cookie);

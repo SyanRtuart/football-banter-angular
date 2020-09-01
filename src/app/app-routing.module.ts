@@ -1,3 +1,4 @@
+import { AccountComponent } from './components/account/account.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'recent-results/:id', component: RecentMatchesComponent, canActivate: [AuthGuardService] },
       { path: 'match-banter/:id', component: MatchBanterComponent , canActivate: [AuthGuardService]},
 
+      { path: 'account', component: AccountComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ]},
