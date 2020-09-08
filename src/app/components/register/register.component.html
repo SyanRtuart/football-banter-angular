@@ -64,11 +64,11 @@
               </div>
             </mat-form-field>
           </div>
-          <div class="text-center">
-            <button (click)="onReset()" [disabled]="this.isLoading" color="secondary" mat-raised-button
+          <div class="full-width">
+            <button (click)="onReset()" [disabled]="this.isLoading" color="secondary" mat-raised-button class="half-width"
               type="reset">Reset</button>
 
-            <button type="submit" mat-raised-button color="primary" [class.spinner]="isLoading"
+            <button type="submit" mat-raised-button color="primary" [class.spinner]="isLoading" class="half-width"
               [disabled]="isLoading">Register</button>
           </div>
           <div *ngIf="this.error" class="alert alert-danger m-2" role="alert">

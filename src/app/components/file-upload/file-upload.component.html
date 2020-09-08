@@ -1,0 +1,5 @@
+<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput accept="image/x-png,image/gif,image/jpeg">
+
+<button (click)="fileInput.click()" type="button" mat-raised-button color="secondary" class="full-width">
+  {{buttonCaption}}
+</button>

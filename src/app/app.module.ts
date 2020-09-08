@@ -33,6 +33,7 @@ import { MatchCardComponent } from './components/match-card/match-card.component
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSortModule } from '@angular/material/sort';
 import { AccountComponent } from './components/account/account.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AccountComponent } from './components/account/account.component';
     MustMatchDirective,
     DataTableComponent,
     MatchCardComponent,
-    AccountComponent
+    AccountComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

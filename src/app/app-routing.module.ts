@@ -19,7 +19,7 @@ const routes: Routes = [
       { path: 'recent-results/:id', component: RecentMatchesComponent, canActivate: [AuthGuardService] },
       { path: 'match-banter/:id', component: MatchBanterComponent , canActivate: [AuthGuardService]},
 
-      { path: 'account', component: AccountComponent },
+      { path: 'account', component: AccountComponent, canActivate: [AuthGuardService] },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ]},

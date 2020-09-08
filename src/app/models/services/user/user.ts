@@ -5,5 +5,5 @@ export interface User {
   login: string;
   banterScore: number;
   commentScore: number;
-  picture: Blob;
+  image: Blob;
 }

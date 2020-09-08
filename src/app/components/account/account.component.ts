@@ -15,6 +15,8 @@ export class AccountComponent implements OnInit {
   submitted = false;
   isLoading = false;
   user: User;
+  imageUrl: any;
+  returnUrl: string;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private tokenService: JwtTokenService) {
     this.createForm();
@@ -46,6 +48,22 @@ export class AccountComponent implements OnInit {
 
   }
 
+  addPicture() {
+
+  }
+
+  recieveFile(file: File) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = (event) => {
+      this.imageUrl = event.target.result;
+    };
+
+    this.userService.uploadImage(file).subscribe();
+  }
+
   get f() { return this.accountForm.controls; }
 
   private createForm() {
@@ -54,6 +72,8 @@ export class AccountComponent implements OnInit {
       email: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      commentScore: [''],
+      banterScore: [''],
       password: ['', Validators.compose(
         [Validators.required, Validators.minLength(8)]
       )],

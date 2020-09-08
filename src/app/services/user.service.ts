@@ -1,14 +1,11 @@
 import { User } from './../models/services/user/user';
-import { BusinessRuleException } from './../models/business-rule-exception';
 import { LoginResponse } from './../models/services/user/login-response';
-import { retry, catchError } from 'rxjs/operators';
 import { LoginRequest } from './../models/services/user/login-request';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { throwError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RegisterRequest } from '../models/services/user/register-request';
-import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +17,8 @@ export class UserService {
   private apiRoutes = {
     login: 'userAccess/login',
     register: 'userAccess/register',
-    getUser: 'userAccess/user?email='
+    getUser: 'userAccess/user?email=',
+    uploadImage: 'userAccess/uploadImage'
   };
 
   constructor(private http: HttpClient) { }
@@ -36,5 +34,11 @@ export class UserService {
 
   getUser(email: string) {
     return this.http.get<User>(this.apiUrl + this.apiRoutes.getUser + email);
+  }
+
+  uploadImage(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('image', file, file.name);
+    return this.http.post(this.apiUrl + this.apiRoutes.uploadImage, formData);
   }
 }

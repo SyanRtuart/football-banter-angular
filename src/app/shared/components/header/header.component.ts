@@ -1,7 +1,6 @@
 import { CookieService } from './../../../services/cookie.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Route } from '@angular/compiler/src/core';
 import { JwtTokenService } from 'src/app/services/jwt-token.service';
 
 @Component({
@@ -25,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   signout() {
     this.cookieService.remove(this.cookieService.keyStore.footballBanterAccessToken);
+    this.jwtService.removeToken();
     this.router.navigate(['/login']);
   }
 

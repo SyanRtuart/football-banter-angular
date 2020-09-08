@@ -17,3 +17,12 @@ padding: 0;
 .right-padding {
   padding-right: 5px;
 }
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.half-width {
+  width: 50%;
+}

@@ -18,10 +18,17 @@ export class JwtTokenService {
     }
   }
 
+  removeToken() {
+    this.jwtToken = null;
+    this.decodedToken = null;
+  }
+
   decodeToken() {
     if (!this.jwtToken) {
       const cookie = this.cookieService.get(this.cookieService.keyStore.footballBanterAccessToken);
-      if (cookie) { this.jwtToken = cookie; }
+      if (cookie) {
+        this.jwtToken = cookie;
+      }
     }
 
     if (this.jwtToken) {

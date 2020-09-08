@@ -23,6 +23,10 @@ padding: 0;
   margin-bottom: 20px;
 }
 
+.half-width {
+  width: 50%;
+}
+
 .profile-card {
   text-align: center;
   padding: 0 20px 20px 20px;
@@ -37,4 +41,12 @@ padding: 0;
 
 .center {
   margin: auto;
+}
+
+.gray {
+  color: gray;
+}
+
+.large-text{
+  font-size: xx-large;
 }
