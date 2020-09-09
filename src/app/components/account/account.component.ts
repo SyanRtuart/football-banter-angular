@@ -4,6 +4,7 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/validators/must-match-validator';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-account',
@@ -18,7 +19,8 @@ export class AccountComponent implements OnInit {
   imageUrl: any;
   returnUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private tokenService: JwtTokenService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService,
+              private tokenService: JwtTokenService, private sanitizer: DomSanitizer) {
     this.createForm();
   }
 
@@ -26,7 +28,9 @@ export class AccountComponent implements OnInit {
     this.isLoading = true;
     this.userService.getUser(this.tokenService.getEmail()).subscribe(response => {
       this.user = response;
-
+      const objectURL = 'data:image/png;base64,' + this.user.picture;
+      //this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      this.imageUrl = objectURL;
       this.accountForm.patchValue({
         firstName: this.user.firstName,
         lastName: this.user.lastName
@@ -45,10 +49,6 @@ export class AccountComponent implements OnInit {
   }
 
   changePassword() {
-
-  }
-
-  addPicture() {
 
   }
 

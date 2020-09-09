@@ -18,7 +18,7 @@ export class UserService {
     login: 'userAccess/login',
     register: 'userAccess/register',
     getUser: 'userAccess/user?email=',
-    uploadImage: 'userAccess/uploadImage'
+    uploadImage: 'userAccess/uploadPicture'
   };
 
   constructor(private http: HttpClient) { }

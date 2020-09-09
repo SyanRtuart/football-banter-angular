@@ -4,7 +4,10 @@
       <h2>Ryan Stuart</h2>
       <h4>Ryan@Example.co.uk</h4>
     </div>
-    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" class="rounded-image">
+    <div *ngIf="imageUrl">
+      <img [src]='imageUrl' alt="" class="rounded-image">
+
+    </div>
   </div>
 
   <mat-divider></mat-divider>

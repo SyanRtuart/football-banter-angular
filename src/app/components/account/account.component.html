@@ -12,7 +12,6 @@
                   <h2>{{user.login}}</h2>
                 </div>
                 <img [src]='imageUrl' alt="" class="rounded-image">
-                <!-- <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" class="rounded-image"> -->
               </div>
 
               <app-file-upload buttonCaption="Add Picture" (selectedFile)="this.recieveFile($event)"></app-file-upload>
