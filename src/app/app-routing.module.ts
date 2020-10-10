@@ -12,7 +12,7 @@ import { MatchBanterComponent } from './components/match-banter/match-banter.com
 
 
 const routes: Routes = [
-  { path: '', component: DefaultComponent,
+  { path: '', component: DefaultComponent, canActivate: [AuthGuardService],
     children: [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
       { path: 'team-select', component: TeamSelectComponent,  canActivate: [AuthGuardService]},
@@ -20,10 +20,10 @@ const routes: Routes = [
       { path: 'match-banter/:id', component: MatchBanterComponent , canActivate: [AuthGuardService]},
 
       { path: 'account', component: AccountComponent, canActivate: [AuthGuardService] },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-    ]},
 
+    ]},
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({

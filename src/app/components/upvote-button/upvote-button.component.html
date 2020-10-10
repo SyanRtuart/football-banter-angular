@@ -1,4 +1,4 @@
-<div class="votebox" style="padding-right: 30px;">
+<div class="votebox noselect" style="padding-right: 30px;">
   <fa-icon (click)="upvote()" [icon]="faArrowUp" size="lg" class="vote up" [ngClass]="{'active' : userVote > 0 }">
   </fa-icon>
   <span class="vote-count">{{ score }}</span>

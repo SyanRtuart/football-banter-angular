@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
-
   login() {
     this.isLoading = true;
     this.userService.login(this.loginForm.value).subscribe(response => {
@@ -59,7 +58,6 @@ export class LoginComponent implements OnInit {
   }
 
   get f() { return this.loginForm.controls; }
-
 
   private createForm() {
     this.loginForm = this.formBuilder.group({

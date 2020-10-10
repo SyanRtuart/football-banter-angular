@@ -6,6 +6,7 @@
   flex-direction: column;
   font-size: 1em;
   font-style: bold;
+
 }
 
 .vote {
@@ -24,3 +25,4 @@
 .active.down {
    color: red;
  }
+
