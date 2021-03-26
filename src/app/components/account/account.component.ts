@@ -1,10 +1,12 @@
+import { UpdateMemberRequest } from './../../models/services/phrase/update-member-request';
+import { PhraseService } from './../../services/phrase.service';
 import { JwtTokenService } from './../../services/jwt-token.service';
-import { User } from './../../models/services/user/user';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/validators/must-match-validator';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Member } from 'src/app/models/services/phrase/member-response';
 
 @Component({
   selector: 'app-account',
@@ -12,28 +14,34 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  accountForm: FormGroup;
+  member: Member;
+  accountFormGroup: FormGroup;
+  passwordFormGroup: FormGroup;
   submitted = false;
   isLoading = false;
-  user: User;
+  isSaving = false;
+  isChangingPassword = false;
   imageUrl: any;
   returnUrl: string;
+  fileBlob: Blob;
+  base64textString: string;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
-              private tokenService: JwtTokenService, private sanitizer: DomSanitizer) {
+    private phraseService: PhraseService, private tokenService: JwtTokenService,
+    private sanitizer: DomSanitizer) {
     this.createForm();
   }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userService.getUser(this.tokenService.getEmail()).subscribe(response => {
-      this.user = response;
-      const objectURL = 'data:image/png;base64,' + this.user.picture;
+    this.phraseService.getMember(this.tokenService.getUserId()).subscribe(response => {
+      this.member = response;
+      const objectURL = 'data:image/png;base64,' + this.member.picture;
       //this.sanitizer.bypassSecurityTrustUrl(objectURL);
       this.imageUrl = objectURL;
-      this.accountForm.patchValue({
-        firstName: this.user.firstName,
-        lastName: this.user.lastName
+      this.accountFormGroup.patchValue({
+        firstName: this.member.firstName,
+        lastName: this.member.lastName
       });
       this.isLoading = false;
     });
@@ -41,39 +49,73 @@ export class AccountComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.accountForm.invalid) {
+    if (this.accountFormGroup.invalid) {
       return;
     }
 
-    //this.register();
   }
 
-  changePassword() {
+  save() {
+    this.isSaving = true;
+    if (this.member.picture) {
+      this.base64textString = this.member.picture;
+    }
 
+    let request = new UpdateMemberRequest(
+      this.tokenService.getUserId(),
+      this.form['firstName'].value,
+      this.form['lastName'].value,
+      this.base64textString,
+    );
+
+    this.phraseService.updateMemberGeneralAttributes(request)
+      .subscribe(() =>
+        this.isSaving = false)
+  }
+
+
+  changePassword() {
+    this.isChangingPassword = true;
+
+    if (this.passwordFormGroup.invalid) {
+      return;
+    }
+
+    //Change PW in service
+    this.isChangingPassword = false;
   }
 
   recieveFile(file: File) {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onload = (event) => {
-      this.imageUrl = event.target.result;
+    const urlReader = new FileReader();
+    urlReader.readAsDataURL(file);
+    urlReader.onload = () => {
+      this.imageUrl = urlReader.result;
     };
 
-    this.userService.uploadImage(file).subscribe();
+    var stringReader = new FileReader();
+    stringReader.onload = this.handleFile.bind(this);
+    stringReader.readAsBinaryString(file);
   }
 
-  get f() { return this.accountForm.controls; }
+  handleFile(event) {
+    var binaryString = event.target.result;
+    this.base64textString = btoa(binaryString);
+    console.log(btoa(binaryString));
+  }
+
+  get form() { return this.accountFormGroup.controls; }
+  get passwordForm() {return this.passwordFormGroup.controls;}
 
   private createForm() {
-    this.accountForm = this.formBuilder.group({
+    this.accountFormGroup = this.formBuilder.group({
       userName: [''],
       email: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       commentScore: [''],
-      banterScore: [''],
+      banterScore: ['']
+    });
+    this.passwordFormGroup = this.formBuilder.group({
       password: ['', Validators.compose(
         [Validators.required, Validators.minLength(8)]
       )],

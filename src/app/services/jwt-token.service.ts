@@ -55,6 +55,11 @@ export class JwtTokenService {
     return this.decodedToken ? this.decodedToken.exp : null;
   }
 
+  getUserId() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken.sub : null;
+  }
+
   isTokenExpired(): boolean {
     const expiryTime: number = parseInt(this.getExpiryTime(), 10);
     if (expiryTime) {

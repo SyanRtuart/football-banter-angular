@@ -3,79 +3,87 @@
     <h5 class="card-header">Account</h5>
     <div class="card-body">
       <div class="vertical-center">
-        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="register-form" *ngIf="this.user">
-          <div class="form-row">
+        <form [formGroup]="accountFormGroup" class="form" *ngIf="this.member">
 
+          <div class="form-row">
             <div class="center">
               <div class="profile-card ">
                 <div class="header">
-                  <h2>{{user.login}}</h2>
+                  <h2>{{member.login}}</h2>
                 </div>
                 <img [src]='imageUrl' alt="" class="rounded-image">
               </div>
 
-              <app-file-upload buttonCaption="Add Picture" (selectedFile)="this.recieveFile($event)"></app-file-upload>
-
+              <app-file-upload buttonCaption="Change Picture" (selectedFile)="this.recieveFile($event)">
+              </app-file-upload>
             </div>
+          </div>
 
+          <div class="form-row">
             <div class="form-group col-6 no-padding text-center">
               <mat-label class="score-box">Banter Score</mat-label>
               <br>
-              <label class="large-text"> {{user.banterScore}} </label>
+              <label class="large-text"> {{member.banterScore}} </label>
             </div>
 
             <div class="form-group col-6 no-padding text-center">
               <mat-label class="score-box">Comment Score</mat-label>
               <br>
-              <label class="large-text"> {{user.commentScore}} </label>
-
+              <label class="large-text"> {{member.commentScore}} </label>
             </div>
+          </div>
 
+          <div class="form-row">
             <mat-form-field class="form-group col-6 no-padding">
               <mat-label>First Name</mat-label>
               <input matInput type="text" formControlName="firstName"
-                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                [ngClass]="{ 'is-invalid': submitted && form.firstName.errors }" />
+              <div *ngIf="submitted && form.firstName.errors" class="text-danger">
+                <div *ngIf="form.firstName.errors.required">First Name is required</div>
               </div>
             </mat-form-field>
 
             <mat-form-field class="form-group col-6 right-padding">
               <mat-label>Last Name</mat-label>
               <input matInput type="text" formControlName="lastName"
-                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-              <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                [ngClass]="{ 'is-invalid': submitted && form.lastName.errors }" />
+              <div *ngIf="submitted && form.lastName.errors" class="text-danger">
+                <div *ngIf="form.lastName.errors.required">Last Name is required</div>
               </div>
             </mat-form-field>
-
-            <mat-form-field class="form-group col-6 no-padding ">
-              <mat-label>Current Password</mat-label>
-              <input matInput type="password" formControlName="password"
-                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password is required</div>
-                <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
-              </div>
-            </mat-form-field>
-
-            <mat-form-field class="form-group col-6 right-padding">
-              <mat-label>New Password</mat-label>
-              <input matInput type="password" formControlName="confirmPassword"
-                [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-              <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
-              </div>
-            </mat-form-field>
-
-            <button type="button" mat-raised-button color="secondary" (click)="this.changePassword()" class="full-width"
-              [class.spinner]="isLoading" [disabled]="isLoading">
-              Change Password
-            </button>
-
-
           </div>
+
+          <div class="form-row">
+            <form [formGroup]="passwordFormGroup" class="form" *ngIf="this.member">
+              <mat-form-field class="form-group col-6 no-padding ">
+                <mat-label>Current Password</mat-label>
+                <input matInput type="password" formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && passwordForm.password.errors }" />
+                <div *ngIf="submitted && passwordForm.password.errors" class="text-danger">
+                  <div *ngIf="passwordForm.password.errors.required">Password is required</div>
+                  <div *ngIf="passwordForm.password.errors.minlength">Password must be at least 8 characters</div>
+                </div>
+              </mat-form-field>
+
+              <mat-form-field class="form-group col-6 right-padding">
+                <mat-label>New Password</mat-label>
+                <input matInput type="password" formControlName="confirmPassword"
+                  [ngClass]="{ 'is-invalid': submitted && passwordForm.confirmPassword.errors }" />
+                <div *ngIf="submitted && passwordForm.confirmPassword.errors" class="text-danger">
+                  <div *ngIf="passwordForm.confirmPassword.errors.required">Confirm Password is required</div>
+                  <div *ngIf="passwordForm.confirmPassword.errors.mustMatch">Passwords must match</div>
+                </div>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <button (click)="this.changePassword()" type="button" mat-raised-button color="secondary" class="full-width"
+            [class.spinner]="isChangingPassword" [disabled]="isChangingPassword">
+            Change Password
+          </button>
+
+          <button (click)="this.save()" type="button" mat-raised-button color="primary" [class.spinner]="isSaving"
+            class="full-width" [disabled]="isSaving">Save</button>
 
         </form>
         <mat-progress-spinner *ngIf="isLoading" color="primary" mode="indeterminate" class="horizontal-center">

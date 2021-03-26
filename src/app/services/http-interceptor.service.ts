@@ -22,14 +22,14 @@ export class HttpInterceptorService {
     });
     return next.handle(req)
       .pipe(retry(1),
-      catchError(this.handleError));
+      catchError(this.handleError), );
   }
 
   private handleError(err: HttpErrorResponse) {
     const jsonError: any = JSON.parse(err.error.detail);
 
     const exception: BusinessRuleException = jsonError as BusinessRuleException;
-
+    window.alert(jsonError);
     return throwError(exception);
   }
 }

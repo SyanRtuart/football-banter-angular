@@ -1,4 +1,3 @@
-import { User } from './../models/services/user/user';
 import { LoginResponse } from './../models/services/user/login-response';
 import { LoginRequest } from './../models/services/user/login-request';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +10,6 @@ import { RegisterRequest } from '../models/services/user/register-request';
   providedIn: 'root'
 })
 export class UserService {
-
   private apiUrl = environment.apiUrl;
 
   private apiRoutes = {
@@ -30,15 +28,5 @@ export class UserService {
   register(request: RegisterRequest) {
     request.login = request.email;
     return this.http.post(this.apiUrl + this.apiRoutes.register, request);
-  }
-
-  getUser(email: string) {
-    return this.http.get<User>(this.apiUrl + this.apiRoutes.getUser + email);
-  }
-
-  uploadImage(file: File) {
-    const formData: FormData = new FormData();
-    formData.append('image', file, file.name);
-    return this.http.post(this.apiUrl + this.apiRoutes.uploadImage, formData);
   }
 }

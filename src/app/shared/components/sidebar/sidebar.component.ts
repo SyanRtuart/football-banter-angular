@@ -1,7 +1,7 @@
+import { PhraseService } from './../../../services/phrase.service';
 import { JwtTokenService } from './../../../services/jwt-token.service';
-import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/services/user/user';
+import { Member } from 'src/app/models/services/phrase/member-response';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,18 +9,17 @@ import { User } from 'src/app/models/services/user/user';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  user: User;
   imageUrl: any;
+  member: Member;
 
-
-  constructor(private userService: UserService, private tokenService: JwtTokenService) { }
+  constructor(private phraseService: PhraseService, private tokenService: JwtTokenService) { }
 
   ngOnInit(): void {
-    this.userService.getUser(this.tokenService.getEmail()).subscribe(response => {
-      this.user = response;
-      const objectURL = 'data:image/png;base64,' + this.user.picture;
+    this.phraseService.getMember(this.tokenService.getUserId()).subscribe(response => {
+      this.member = response;
+      const objectURL = 'data:image/png;base64,' + this.member.picture;
       this.imageUrl = objectURL;
-    })
+    });
   }
 
 }
