@@ -1,3 +1,4 @@
+import { ChangePasswordRequest } from './../../models/services/user/change-password-request';
 import { UpdateMemberRequest } from './../../models/services/phrase/update-member-request';
 import { PhraseService } from './../../services/phrase.service';
 import { JwtTokenService } from './../../services/jwt-token.service';
@@ -17,10 +18,16 @@ export class AccountComponent implements OnInit {
   member: Member;
   accountFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
+
   submitted = false;
   isLoading = false;
   isSaving = false;
+
   isChangingPassword = false;
+  passwordSubmitted = false;
+  passwordChanged = false;
+  errorChangingPassword = false;
+
   imageUrl: any;
   returnUrl: string;
   fileBlob: Blob;
@@ -75,14 +82,30 @@ export class AccountComponent implements OnInit {
 
 
   changePassword() {
-    this.isChangingPassword = true;
-
     if (this.passwordFormGroup.invalid) {
       return;
     }
 
-    //Change PW in service
-    this.isChangingPassword = false;
+    this.isChangingPassword = true;
+    this.passwordSubmitted = true;
+
+    let changePasswordRequest = new ChangePasswordRequest(
+      this.tokenService.getUserId(),
+      this.passwordForm['currentPassword'].value,
+      this.passwordForm['newPassword'].value
+    );
+
+    this.userService.changePassword(changePasswordRequest)
+      .subscribe(response => {
+        this.isChangingPassword = false
+        this.passwordChanged = true;
+      },
+         error => {
+        this.isChangingPassword = false;
+        this.errorChangingPassword = true;
+
+      });
+
   }
 
   recieveFile(file: File) {
@@ -116,12 +139,12 @@ export class AccountComponent implements OnInit {
       banterScore: ['']
     });
     this.passwordFormGroup = this.formBuilder.group({
-      password: ['', Validators.compose(
+      currentPassword: ['', Validators.compose(
         [Validators.required, Validators.minLength(8)]
       )],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: [MustMatch('password', 'confirmPassword')]
+      newPassword: ['', Validators.compose(
+        [Validators.required, Validators.minLength(8)]
+      )]
     });
   }
 }

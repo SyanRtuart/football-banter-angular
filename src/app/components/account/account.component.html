@@ -57,24 +57,33 @@
             <form [formGroup]="passwordFormGroup" class="form" *ngIf="this.member">
               <mat-form-field class="form-group col-6 no-padding ">
                 <mat-label>Current Password</mat-label>
-                <input matInput type="password" formControlName="password"
-                  [ngClass]="{ 'is-invalid': submitted && passwordForm.password.errors }" />
-                <div *ngIf="submitted && passwordForm.password.errors" class="text-danger">
-                  <div *ngIf="passwordForm.password.errors.required">Password is required</div>
-                  <div *ngIf="passwordForm.password.errors.minlength">Password must be at least 8 characters</div>
+                <input matInput type="password" formControlName="currentPassword"
+                  [ngClass]="{ 'is-invalid': passwordSubmitted && passwordForm.currentPassword.errors }" />
+                <div *ngIf="passwordSubmitted && passwordForm.currentPassword.errors" class="text-danger">
+                  <div *ngIf="passwordForm.currentPassword.errors.required">Password is required</div>
+                  <div *ngIf="passwordForm.currentPassword.errors.minlength">Password must be at least 8 characters</div>
                 </div>
               </mat-form-field>
 
               <mat-form-field class="form-group col-6 right-padding">
                 <mat-label>New Password</mat-label>
-                <input matInput type="password" formControlName="confirmPassword"
-                  [ngClass]="{ 'is-invalid': submitted && passwordForm.confirmPassword.errors }" />
-                <div *ngIf="submitted && passwordForm.confirmPassword.errors" class="text-danger">
-                  <div *ngIf="passwordForm.confirmPassword.errors.required">Confirm Password is required</div>
-                  <div *ngIf="passwordForm.confirmPassword.errors.mustMatch">Passwords must match</div>
+                <input matInput type="password" formControlName="newPassword"
+                  [ngClass]="{ 'is-invalid': passwordSubmitted && passwordForm.newPassword.errors }" />
+                <div *ngIf="passwordSubmitted && passwordForm.newPassword.errors" class="text-danger">
+                  <div *ngIf="passwordForm.newPassword.errors.required">New Password is required</div>
+                  <div *ngIf="passwordForm.newPassword.errors.minlength">Password must be at least 8 characters</div>
                 </div>
               </mat-form-field>
             </form>
+          </div>
+
+          <div class="form-row">
+            <div *ngIf="passwordChanged">
+                  Password successfully changed.
+            </div>
+            <div *ngIf="errorChangingPassword">
+                  Password change failed, an error has occurred.
+        </div>
           </div>
 
           <button (click)="this.changePassword()" type="button" mat-raised-button color="secondary" class="full-width"

@@ -5,6 +5,7 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegisterRequest } from '../models/services/user/register-request';
+import { ChangePasswordRequest } from '../models/services/user/change-password-request';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class UserService {
     login: 'userAccess/login',
     register: 'userAccess/register',
     getUser: 'userAccess/user?email=',
-    uploadImage: 'userAccess/uploadPicture'
+    uploadImage: 'userAccess/uploadPicture',
+    changePassword: 'userAccess/changePassword'
   };
 
   constructor(private http: HttpClient) { }
@@ -28,5 +30,9 @@ export class UserService {
   register(request: RegisterRequest) {
     request.login = request.email;
     return this.http.post(this.apiUrl + this.apiRoutes.register, request);
+  }
+
+  changePassword(request: ChangePasswordRequest) {
+    return this.http.post(this.apiUrl + this.apiRoutes.changePassword, request);
   }
 }

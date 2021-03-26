@@ -21,7 +21,7 @@ export class HttpInterceptorService {
       }
     });
     return next.handle(req)
-      .pipe(retry(1),
+      .pipe(retry(0),
       catchError(this.handleError), );
   }
 
