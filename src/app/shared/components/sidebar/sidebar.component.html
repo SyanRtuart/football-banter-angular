@@ -1,12 +1,11 @@
 <mat-nav-list>
-  <div class="profile-card">
+  <div *ngIf="member" class="profile-card">
     <div class="header">
-      <h2>Ryan Stuart</h2>
-      <h4>Ryan@Example.co.uk</h4>
+      <h2>{{member.firstName}} {{member.lastName}}</h2>
+      <h4>{{member.email}}</h4>
     </div>
     <div *ngIf="imageUrl">
       <img [src]='imageUrl' alt="" class="rounded-image">
-
     </div>
   </div>
 
@@ -16,6 +15,6 @@
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">Dashboard</a>
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/team-select">Teams</a>
-  <a mat-list-item routerLinkActive="list-item-active" >Leaderboards</a>
-  <a mat-list-item routerLinkActive="list-item-active" >Inbox</a>
+  <a mat-list-item routerLinkActive="list-item-active">Leaderboards</a>
+  <a mat-list-item routerLinkActive="list-item-active">Inbox</a>
 </mat-nav-list>

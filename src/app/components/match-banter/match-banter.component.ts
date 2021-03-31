@@ -2,12 +2,12 @@ import { Match } from '../../models/services/match/match';
 import { Phrase } from '../../models/services/banter/phrase';
 import { CreateBanterComponent } from './../create-banter/create-banter.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BanterService } from 'src/app/services/banter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatchService } from 'src/app/services/match.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { PhraseService } from 'src/app/services/phrase.service';
 
 @Component({
   selector: 'app-match-banter',
@@ -23,7 +23,7 @@ export class MatchBanterComponent implements OnInit {
   newPhrase: Phrase;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private banterService: BanterService,
+  constructor(private phraseService: PhraseService,
               private matchService: MatchService,
               private route: ActivatedRoute,
               public dialog: MatDialog) { }
@@ -41,7 +41,7 @@ export class MatchBanterComponent implements OnInit {
 
   loadBanter() {
     this.isLoading = true;
-    this.banterService.getPhrasesByMatchId(this.matchId)
+    this.phraseService.getPhrasesByMatchId(this.matchId)
       .subscribe(response => {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;

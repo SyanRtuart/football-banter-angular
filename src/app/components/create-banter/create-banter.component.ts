@@ -1,7 +1,7 @@
+import { PhraseService } from './../../services/phrase.service';
 import { Phrase } from '../../models/services/banter/phrase';
 import { CreatePhraseRequest } from '../../models/services/banter/create-phrase-request';
 import { DialogData } from './../../models/dialog-data';
-import { BanterService } from 'src/app/services/banter.service';
 import { Component, Input, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -13,14 +13,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CreateBanterComponent {
   constructor(public dialogRef: MatDialogRef<CreateBanterComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private banterService: BanterService) { }
+              private phraseService: PhraseService) { }
 
   model = new CreatePhraseRequest();
   phrase = new Phrase();
 
   submit(): void {
     this.setValues();
-    this.banterService.add(this.model).subscribe(response => {
+    this.phraseService.add(this.model).subscribe(response => {
       this.phrase.id = response;
       console.log("CreateBanterComponent -> submit -> response", response);
     });

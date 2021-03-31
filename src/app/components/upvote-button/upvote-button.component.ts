@@ -1,7 +1,7 @@
-import { BanterService } from 'src/app/services/banter.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { PhraseService } from 'src/app/services/phrase.service';
 
 @Component({
   selector: 'app-upvote-button',
@@ -17,7 +17,7 @@ export class UpvoteButtonComponent implements OnInit {
 
   userVote = 0;
 
-  constructor(private banterService: BanterService) { }
+  constructor(private phraseService: PhraseService) { }
 
   ngOnInit(): void {
   }
@@ -28,7 +28,7 @@ export class UpvoteButtonComponent implements OnInit {
     this.score += vote;
     this.userVote = vote;
 
-    this.banterService.upvote(this.phraseId).subscribe();
+    this.phraseService.upvote(this.phraseId).subscribe();
   }
 
   downvote() {
@@ -36,7 +36,7 @@ export class UpvoteButtonComponent implements OnInit {
     this.score += vote;
     this.userVote = vote;
 
-    this.banterService.downvote(this.phraseId).subscribe();
+    this.phraseService.downvote(this.phraseId).subscribe();
   }
 
 }
