@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { ChangePasswordRequest } from './../../models/services/user/change-password-request';
 import { UpdateMemberRequest } from './../../models/services/phrase/update-member-request';
 import { PhraseService } from './../../services/phrase.service';
@@ -5,7 +6,6 @@ import { JwtTokenService } from './../../services/jwt-token.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MustMatch } from 'src/app/validators/must-match-validator';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Member } from 'src/app/models/services/phrase/member-response';
 
@@ -36,7 +36,7 @@ export class AccountComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
     private phraseService: PhraseService, private tokenService: JwtTokenService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer, private route: ActivatedRoute, private router: Router) {
     this.createForm();
   }
 
@@ -53,6 +53,8 @@ export class AccountComponent implements OnInit {
       });
       this.isLoading = false;
     });
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onSubmit() {
@@ -77,8 +79,10 @@ export class AccountComponent implements OnInit {
     );
 
     this.phraseService.updateMemberGeneralAttributes(request)
-      .subscribe(() =>
-        this.isSaving = false)
+      .subscribe(() => {
+        this.isSaving = false
+        this.router.navigateByUrl(this.returnUrl);
+      })
   }
 
 
@@ -86,11 +90,7 @@ export class AccountComponent implements OnInit {
     if (this.passwordFormGroup.invalid) {
       return;
     }
-    this.errorMessage = "";
-    this.errorChangingPassword = false;
-    this.passwordChanged = false;
-    this.isChangingPassword = true;
-    this.passwordSubmitted = true;
+    this.resetChangePasswordState();
 
     let changePasswordRequest = new ChangePasswordRequest(
       this.tokenService.getUserId(),
@@ -103,12 +103,19 @@ export class AccountComponent implements OnInit {
         this.isChangingPassword = false
         this.passwordChanged = true;
       }, error => {
-          console.log(error);
-          this.isChangingPassword = false;
-          this.errorChangingPassword = true;
-          this.errorMessage = error;
-        });
+        console.log(error);
+        this.isChangingPassword = false;
+        this.errorChangingPassword = true;
+        this.errorMessage = error;
+      });
+  }
 
+  private resetChangePasswordState() {
+    this.errorMessage = "";
+    this.errorChangingPassword = false;
+    this.passwordChanged = false;
+    this.isChangingPassword = true;
+    this.passwordSubmitted = true;
   }
 
   recieveFile(file: File) {
