@@ -4,6 +4,7 @@ import { CreatePhraseRequest } from '../../models/services/banter/create-phrase-
 import { DialogData } from './../../models/dialog-data';
 import { Component, Input, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { JwtTokenService } from 'src/app/services/jwt-token.service';
 
 @Component({
   selector: 'app-create-banter',
@@ -13,7 +14,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CreateBanterComponent {
   constructor(public dialogRef: MatDialogRef<CreateBanterComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private phraseService: PhraseService) { }
+              private phraseService: PhraseService, private tokenService: JwtTokenService) { }
 
   model = new CreatePhraseRequest();
   phrase = new Phrase();
@@ -33,6 +34,7 @@ export class CreateBanterComponent {
 
     this.model.matchId = this.data.matchId;
     this.model.teamId = this.data.teamId;
+    this.model.createdByUserId = this.tokenService.getUserId();
 
     // TODO: When the API returns the created object then we can change this
     this.phrase.description = this.model.description;
