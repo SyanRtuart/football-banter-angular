@@ -61,7 +61,8 @@
                   [ngClass]="{ 'is-invalid': passwordSubmitted && passwordForm.currentPassword.errors }" />
                 <div *ngIf="passwordSubmitted && passwordForm.currentPassword.errors" class="text-danger">
                   <div *ngIf="passwordForm.currentPassword.errors.required">Password is required</div>
-                  <div *ngIf="passwordForm.currentPassword.errors.minlength">Password must be at least 8 characters</div>
+                  <div *ngIf="passwordForm.currentPassword.errors.minlength">Password must be at least 8 characters
+                  </div>
                 </div>
               </mat-form-field>
 
@@ -77,13 +78,17 @@
             </form>
           </div>
 
-          <div class="form-row">
+          <div>
             <div *ngIf="passwordChanged">
-                  Password successfully changed.
+              <div class="alert alert-success" role="alert">
+                Password successfully changed.
+              </div>
             </div>
             <div *ngIf="errorChangingPassword">
-                  Password change failed, an error has occurred.
-        </div>
+              <div class="alert alert-danger" role="alert">
+                {{errorMessage}}
+              </div>
+            </div>
           </div>
 
           <button (click)="this.changePassword()" type="button" mat-raised-button color="secondary" class="full-width"

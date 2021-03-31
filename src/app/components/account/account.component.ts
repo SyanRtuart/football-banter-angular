@@ -31,6 +31,7 @@ export class AccountComponent implements OnInit {
   imageUrl: any;
   returnUrl: string;
   fileBlob: Blob;
+  errorMessage: string;
   base64textString: string;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
@@ -85,7 +86,9 @@ export class AccountComponent implements OnInit {
     if (this.passwordFormGroup.invalid) {
       return;
     }
-
+    this.errorMessage = "";
+    this.errorChangingPassword = false;
+    this.passwordChanged = false;
     this.isChangingPassword = true;
     this.passwordSubmitted = true;
 
@@ -99,12 +102,12 @@ export class AccountComponent implements OnInit {
       .subscribe(response => {
         this.isChangingPassword = false
         this.passwordChanged = true;
-      },
-         error => {
-        this.isChangingPassword = false;
-        this.errorChangingPassword = true;
-
-      });
+      }, error => {
+          console.log(error);
+          this.isChangingPassword = false;
+          this.errorChangingPassword = true;
+          this.errorMessage = error;
+        });
 
   }
 
@@ -127,7 +130,7 @@ export class AccountComponent implements OnInit {
   }
 
   get form() { return this.accountFormGroup.controls; }
-  get passwordForm() {return this.passwordFormGroup.controls;}
+  get passwordForm() { return this.passwordFormGroup.controls; }
 
   private createForm() {
     this.accountFormGroup = this.formBuilder.group({

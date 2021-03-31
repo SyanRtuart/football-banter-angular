@@ -26,10 +26,10 @@ export class HttpInterceptorService {
   }
 
   private handleError(err: HttpErrorResponse) {
-    const jsonError: any = JSON.parse(err.error.detail);
+    const error: any = err.error.detail;
 
-    const exception: BusinessRuleException = jsonError as BusinessRuleException;
-    window.alert(jsonError);
+    const exception: BusinessRuleException = error as BusinessRuleException;
+    window.alert(error);
     return throwError(exception);
   }
 }
