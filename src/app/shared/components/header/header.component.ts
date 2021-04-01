@@ -2,7 +2,6 @@ import { CookieService } from './../../../services/cookie.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { JwtTokenService } from 'src/app/services/jwt-token.service';
-import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-header',

@@ -11,12 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
+    SnackBarComponent,
   ],
   imports: [
     CommonModule,
@@ -27,12 +30,14 @@ import { MatListModule } from '@angular/material/list';
     FlexLayoutModule,
     MatMenuModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatSnackBarModule
   ],
   exports: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
+    SnackBarComponent
   ]
 })
 export class SharedModule { }
